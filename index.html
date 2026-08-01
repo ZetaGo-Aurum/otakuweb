@@ -49,7 +49,7 @@
             font-family: 'Orbitron', sans-serif;
         }
         .glass-card {
-            background: rgba(18, 22, 41, 0.82);
+            background: rgba(18, 22, 41, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -64,9 +64,6 @@
         }
         .neon-glow {
             box-shadow: 0 0 30px rgba(236, 72, 153, 0.3);
-        }
-        .neon-glow-purple {
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
@@ -84,11 +81,6 @@
         .animate-pulse-slow {
             animation: pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-        .tab-btn-active {
-            background-color: rgba(236, 72, 153, 0.15);
-            border-color: rgba(236, 72, 153, 0.5);
-            color: #f472b6;
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-otaku-accent selection:text-white custom-scrollbar">
@@ -102,11 +94,11 @@
     </div>
 
     <!-- Navigation Header -->
-    <header class="relative z-20 border-b border-white/10 glass-card sticky top-0">
+    <header class="relative z-30 border-b border-white/10 glass-card sticky top-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToHome()">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 via-purple-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-pink-500/30">
-                    <i class="fa-solid fa-atom text-white text-xl animate-spin-slow"></i>
+                    <i class="fa-solid fa-atom text-white text-xl"></i>
                 </div>
                 <div>
                     <h1 class="font-orbitron font-bold text-base sm:text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-400">
@@ -117,17 +109,17 @@
             </div>
 
             <div class="flex items-center space-x-2 sm:space-x-3">
-                <button onclick="openResearchModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition flex items-center gap-2">
+                <button type="button" onclick="openResearchModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-microscope text-cyan-400"></i>
                     <span class="hidden md:inline">Sumber Riset & Metodologi</span>
                 </button>
 
-                <button onclick="openEncyclopediaModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition flex items-center gap-2">
+                <button type="button" onclick="openEncyclopediaModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-book-bookmark text-pink-400"></i>
                     <span class="hidden md:inline">Ensiklopedia Label (47)</span>
                 </button>
 
-                <button id="soundToggleBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition flex items-center justify-center" title="Beralih Efek Suara">
+                <button type="button" id="soundToggleBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center justify-center cursor-pointer" title="Beralih Efek Suara">
                     <i class="fa-solid fa-volume-high text-xs sm:text-sm text-pink-400"></i>
                 </button>
             </div>
@@ -179,11 +171,11 @@
                         <i class="fa-solid fa-user-ninja text-pink-400"></i> Nama / Nickname Kamu
                     </label>
                     <div class="relative">
-                        <input type="text" id="userNameInput" placeholder="Contoh: Jhon Doe" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition">
+                        <input type="text" id="userNameInput" placeholder="Contoh: John Doe" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition">
                     </div>
                 </div>
 
-                <button onclick="startQuiz()" class="w-full group relative inline-flex items-center justify-center px-10 py-4 sm:py-4.5 text-base font-bold text-white transition-all duration-300 bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 rounded-2xl shadow-xl hover:shadow-pink-500/40 hover:scale-[1.02] active:scale-95">
+                <button onclick="startQuiz()" class="w-full group relative inline-flex items-center justify-center px-10 py-4 text-base font-bold text-white transition-all duration-300 bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 rounded-2xl shadow-xl hover:shadow-pink-500/40 hover:scale-[1.02] active:scale-95 cursor-pointer">
                     <span class="flex items-center gap-3">
                         Mulai Tes Analisis Selera
                         <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
@@ -225,27 +217,27 @@
 
                 <!-- Likert Options (5 Scale Buttons) -->
                 <div class="grid grid-cols-1 sm:grid-cols-5 gap-2 sm:gap-3 pt-4">
-                    <button onclick="selectOption(1)" class="option-btn glass-card hover:bg-rose-500/20 border-rose-500/30 hover:border-rose-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group">
+                    <button onclick="selectOption(1)" class="option-btn glass-card hover:bg-rose-500/20 border-rose-500/30 hover:border-rose-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group cursor-pointer">
                         <div class="w-6 h-6 rounded-full border border-rose-400/50 flex items-center justify-center text-rose-400 text-xs group-hover:bg-rose-500 group-hover:text-white transition">1</div>
                         <span class="text-center">Sangat Tidak Setuju</span>
                     </button>
 
-                    <button onclick="selectOption(2)" class="option-btn glass-card hover:bg-orange-500/20 border-orange-500/30 hover:border-orange-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group">
+                    <button onclick="selectOption(2)" class="option-btn glass-card hover:bg-orange-500/20 border-orange-500/30 hover:border-orange-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group cursor-pointer">
                         <div class="w-6 h-6 rounded-full border border-orange-400/50 flex items-center justify-center text-orange-400 text-xs group-hover:bg-orange-500 group-hover:text-white transition">2</div>
                         <span class="text-center">Tidak Setuju</span>
                     </button>
 
-                    <button onclick="selectOption(3)" class="option-btn glass-card hover:bg-slate-500/20 border-slate-500/30 hover:border-slate-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group">
+                    <button onclick="selectOption(3)" class="option-btn glass-card hover:bg-slate-500/20 border-slate-500/30 hover:border-slate-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group cursor-pointer">
                         <div class="w-6 h-6 rounded-full border border-slate-400/50 flex items-center justify-center text-slate-300 text-xs group-hover:bg-slate-500 group-hover:text-white transition">3</div>
                         <span class="text-center">Netral / Raguis</span>
                     </button>
 
-                    <button onclick="selectOption(4)" class="option-btn glass-card hover:bg-purple-500/20 border-purple-500/30 hover:border-purple-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group">
+                    <button onclick="selectOption(4)" class="option-btn glass-card hover:bg-purple-500/20 border-purple-500/30 hover:border-purple-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group cursor-pointer">
                         <div class="w-6 h-6 rounded-full border border-purple-400/50 flex items-center justify-center text-purple-400 text-xs group-hover:bg-purple-500 group-hover:text-white transition">4</div>
                         <span class="text-center">Setuju</span>
                     </button>
 
-                    <button onclick="selectOption(5)" class="option-btn glass-card hover:bg-pink-500/20 border-pink-500/30 hover:border-pink-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group">
+                    <button onclick="selectOption(5)" class="option-btn glass-card hover:bg-pink-500/20 border-pink-500/30 hover:border-pink-500/60 text-gray-200 py-3.5 px-2 rounded-xl text-xs font-bold transition flex sm:flex-col items-center justify-center gap-2 group cursor-pointer">
                         <div class="w-6 h-6 rounded-full border border-pink-400/50 flex items-center justify-center text-pink-400 text-xs group-hover:bg-pink-500 group-hover:text-white transition">5</div>
                         <span class="text-center">Sangat Setuju</span>
                     </button>
@@ -253,7 +245,7 @@
 
                 <!-- Navigation Controls -->
                 <div class="flex justify-between items-center pt-2 text-xs border-t border-white/5">
-                    <button id="prevBtn" onclick="prevQuestion()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition flex items-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed">
+                    <button id="prevBtn" onclick="prevQuestion()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition flex items-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer">
                         <i class="fa-solid fa-arrow-left"></i> Sebelumnya
                     </button>
                     <span class="text-gray-500 italic hidden sm:inline">Pilih opsi untuk otomatis lanjut ke nomor berikutnya</span>
@@ -273,7 +265,7 @@
                             <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
                             <span class="text-xs uppercase tracking-widest text-emerald-400 font-bold">Sertifikat Resmi Spektrum Otaku</span>
                         </div>
-                        <h3 class="text-xs text-gray-300">Diberikan Kepada: <span id="displayUserName" class="text-pink-400 font-bold font-orbitron text-sm">Rayhan</span></h3>
+                        <h3 class="text-xs text-gray-300">Diberikan Kepada: <span id="displayUserName" class="text-pink-400 font-bold font-orbitron text-sm">John Doe</span></h3>
                     </div>
                     <div id="matchScoreBadge" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 border border-pink-500/40 text-pink-300 font-orbitron font-bold text-xs sm:text-sm">
                         98% Affinity Match
@@ -410,13 +402,13 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-wrap gap-3 justify-center pt-2">
-                <button onclick="downloadCardAsImage()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold shadow-lg hover:shadow-pink-500/30 transition flex items-center gap-2 active:scale-95">
+                <button onclick="downloadCardAsImage()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold shadow-lg hover:shadow-pink-500/30 transition flex items-center gap-2 active:scale-95 cursor-pointer">
                     <i class="fa-solid fa-download"></i> Simpan Kartu Hasil (.PNG)
                 </button>
-                <button onclick="copyResultText()" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white border border-white/10 text-xs font-bold transition flex items-center gap-2 active:scale-95">
+                <button onclick="copyResultText()" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white border border-white/10 text-xs font-bold transition flex items-center gap-2 active:scale-95 cursor-pointer">
                     <i class="fa-solid fa-copy"></i> Salin Teks Ringkasan
                 </button>
-                <button onclick="resetToHome()" class="px-6 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-xs font-bold transition flex items-center gap-2 active:scale-95">
+                <button onclick="resetToHome()" class="px-6 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-xs font-bold transition flex items-center gap-2 active:scale-95 cursor-pointer">
                     <i class="fa-solid fa-rotate-right"></i> Tes Ulang
                 </button>
             </div>
@@ -438,7 +430,7 @@
                         <p class="text-[11px] text-gray-400">Kerangka Teoretis Taksonomi Otaku Culture 2026</p>
                     </div>
                 </div>
-                <button onclick="closeResearchModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition">
+                <button onclick="closeResearchModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -451,7 +443,7 @@
                         <i class="fa-solid fa-atom text-pink-400"></i> Landasan Teori Psikologi Otaku
                     </h4>
                     <p class="text-xs text-gray-300">
-                        Tes ini dikembangkan berdasarkan studi psikologi media pop jepang dan taksonomi database karakter (Hiroki Azuma - <i>Database Animals</i>). Karakter dan selera otaku dianalisis bukan dari ingatan trivia judul anime, melainkan melalui keterikatan emosional (affinity) terhadap elemen naratif, daya tarik estetika visual, serta dinamika antar-karakter.
+                        Tes ini dikembangkan berdasarkan studi psikologi media pop Jepang dan taksonomi database karakter (Hiroki Azuma - <i>Database Animals</i>). Karakter dan selera otaku dianalisis bukan dari ingatan trivia judul anime, melainkan melalui keterikatan emosional (affinity) terhadap elemen naratif, daya tarik estetika visual, serta dinamika antar-karakter.
                     </p>
                 </div>
 
@@ -522,7 +514,7 @@
                         <p class="text-[11px] text-gray-400">Daftar lengkap taksonomi otaku archetypes</p>
                     </div>
                 </div>
-                <button onclick="closeEncyclopediaModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition">
+                <button onclick="closeEncyclopediaModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -556,15 +548,590 @@
         </div>
     </footer>
 
+    <!-- JAVASCRIPT CODE -->
     <script>
-        /* ==========================================================================
-           STATE MANAGEMENT & AUDIO SYNTHESIS
-           ========================================================================== */
-        let currentQuestionIndex = 0;
-        let userAnswers = new Array(QUESTIONS.length).fill(null);
-        let isAudioMuted = false;
-        let userName = "Otaku Member";
+        const ARCHETYPES = [
+            {
+                id: 'monogamist',
+                title: 'WAIFU MONOGAMIST',
+                tagline: 'Satu Jiwa, Satu Waifu Utama Sampai Akhir Hayat.',
+                icon: 'fa-ring',
+                color: 'from-pink-500 to-rose-600',
+                category: 'Wholesome Devotion',
+                desc: 'Kamu memiliki tingkat kesetiaan luar biasa. Bagi kamu, memiliki banyak waifu adalah hal yang kurang bermakna. Ketika menyukai satu karakter, kamu mendedikasikan kasih sayang penuh padanya.',
+                traits: ['Setia pada 1 waifu impian', 'Menghargai ikatan emosional mendalam', 'Anti-harem, mengutamakan komitmen'],
+                tropes: ['Pure Romance', 'Childhood Friend', 'Loyal Partner']
+            },
+            {
+                id: 'kuudere',
+                title: 'KUUDERE CONNOISSEUR',
+                tagline: 'Dingin di Luar, Namun Menyimpan Kehangatan Tak Terhingga.',
+                icon: 'fa-snowflake',
+                color: 'from-cyan-500 to-blue-600',
+                category: 'Personality Trope',
+                desc: 'Kamu terpesona oleh karakter yang tampak tenang, ekspresi datar, dan jarang tersenyum, namun diam-diam memiliki kepedulian yang sangat dalam.',
+                traits: ['Suka karakter rasional & tenang', 'Peka pada ekspresi emosi tipis', 'Menyukai karakter cerdas'],
+                tropes: ['Silent Guardian', 'Expressionless Beauty', 'Hidden Warmth']
+            },
+            {
+                id: 'tsundere',
+                title: 'TSUNDERE ENTHUSIAST',
+                tagline: 'B-Bukan Berarti Aku Menyukaimu atau Apa, Baka!',
+                icon: 'fa-bolt',
+                color: 'from-amber-500 to-pink-500',
+                category: 'Personality Trope',
+                desc: 'Gengsi dan malu-malu kucing adalah puncak daya tarik. Kamu sangat menikmati dinamika karakter yang berpura-pura galak namun memendam rasa sayang.',
+                traits: ['Penikmat dinamika tsundere', 'Suka sensasi manis di balik amarah', 'Menikmati romansa jenaka'],
+                tropes: ['Blushing Denial', 'Classic Twin-tail', 'Accidental Care']
+            },
+            {
+                id: 'dandere',
+                title: 'DANDERE SHY SOUL',
+                tagline: 'Kelembutan Hati di Balik Kemalu-maluan yang Manis.',
+                icon: 'fa-book-open',
+                color: 'from-purple-400 to-pink-400',
+                category: 'Personality Trope',
+                desc: 'Karakter pendiam yang bicaranya pelan dan pemalu namun sangat manis saat sudah akrab membuat hatimu merasa tenang dan bahagia.',
+                traits: ['Penyuka karakter pemalu', 'Suka momen perlahan tapi pasti', 'Menghargai ketenangan'],
+                tropes: ['Shy Library Girl', 'Soft Spoken', 'Gentle Smile']
+            },
+            {
+                id: 'maid',
+                title: 'MAID & SERVICE DEVOTEE',
+                tagline: 'Keanggungan Seragam Pelayanan & Dedikasi Tanpa Batas.',
+                icon: 'fa-broom',
+                color: 'from-purple-500 to-pink-600',
+                category: 'Aesthetic & Service',
+                desc: 'Aura ketenangan, kesopanan, dan estetika seragam maid Victoria maupun modern membuat hatimu bergetar. Kamu mengagumi kesetiaan dan kerapian.',
+                traits: ['Sangat menyukai estetika maid', 'Mengagumi karakter sopan & perhatian', 'Suka tema kafe & pelayanan'],
+                tropes: ['Meido Aesthetics', 'Perfect Housekeeper', 'Okaerinasai Master']
+            },
+            {
+                id: 'yuri',
+                title: 'YURI SPECIALIST',
+                tagline: 'Keindahan Hubungan Sesama Perempuan yang Murni & Estetik.',
+                icon: 'fa-spa',
+                color: 'from-pink-400 to-purple-400',
+                category: 'Romance Spectrum',
+                desc: 'Kamu menganggap ikatan emosional dan romantisme antar sesama perempuan sebagai puncak dari keindahan artistik otaku.',
+                traits: ['Pencinta dinamika Girls\' Love (GL)', 'Apresiasi tinggi pada emosi estetis', 'Suka nuansa drama romantis lembut'],
+                tropes: ['Class S Romance', 'Girls Academy', 'Pure Sisterhood']
+            },
+            {
+                id: 'bl',
+                title: 'BL / YAOI CONNOISSEUR',
+                tagline: 'Keindahan Dinamika Romance & Drama Antar Karakter Pria.',
+                icon: 'fa-heart-circle-bolt',
+                color: 'from-blue-400 to-purple-500',
+                category: 'Romance Spectrum',
+                desc: 'Kamu menemukan pesona emosional yang kuat dari dinamika Boy\'s Love (BL). Persaingan dan keterikatan emosional antar pria terasa sangat memikat.',
+                traits: ['Penyuka dinamika romansa BL', 'Suka persaingan emosional yang erat', 'Apresiasi estetika karakter pria'],
+                tropes: ['Rivalry to Romance', 'Protective Partner', 'Dramatic Confession']
+            },
+            {
+                id: 'gooner',
+                title: 'CULTURE SCHOLAR & GOONER',
+                tagline: 'Menikmati Sensasi Ecchi & Fan-Service Tanpa Basa-Basi.',
+                icon: 'fa-fire',
+                color: 'from-rose-600 to-red-600',
+                category: 'Culture & Ecchi',
+                desc: 'Kamu adalah penikmat sejati di dunia "Culture"! Kamu sangat menyukai fan-service, adegan ecchi, dan estetika visual karakter tanpa canggung.',
+                traits: ['Jujur pada hasrat visual & ecchi', 'Menikmati komedi dewasa & fanservice', 'Apresiasi tinggi pada estetika tubuh'],
+                tropes: ['Ecchi Comedy', 'Uncensored Cut', 'Beach Episode']
+            },
+            {
+                id: 'masochist',
+                title: 'SUBMISSIVE / MASOCHIST',
+                tagline: 'Nikmatnya Disiksa Manis & Diatur Karakter Dominan.',
+                icon: 'fa-handcuffs',
+                color: 'from-purple-600 to-indigo-800',
+                category: 'Fetish & Dynamics',
+                desc: 'Kamu merasa sangat puas jika berada di posisi pasif. Karakter wanita berkepribadian tegas, suka memerintah, atau menatap dingin membuatmu bahagia.',
+                traits: ['Suka dinamika karakter cewek dominan', 'Menikmati ejekan manis & perintah', 'Penikmat ekspresi galak'],
+                tropes: ['Sadistic Queen', 'Step-on-me Trope', 'Submissive Hero']
+            },
+            {
+                id: 'dominant',
+                title: 'DOMINANT & SADISTIC MIND',
+                tagline: 'Penguasa Tropes & Penakluk Hati Karakter Pasif.',
+                icon: 'fa-crown',
+                color: 'from-purple-700 to-rose-700',
+                category: 'Fetish & Dynamics',
+                desc: 'Kamu menikmati posisi mengontrol dan memimpin. Karakter yang pemalu, patuh, atau tunduk kepadamu memberikan kepuasan tersendiri.',
+                traits: ['Suka memegang kontrol', 'Menikmati karakter patuh/pemalu', 'Sifat kepemimpinan kuat'],
+                tropes: ['Dominant Master', 'Teasing Superior', 'Commanding Aura']
+            },
+            {
+                id: 'yandere',
+                title: 'YANDERE RISK-TAKER',
+                tagline: 'Cinta Obsesif Berbahaya yang Siap Membunuh Demi Kamu.',
+                icon: 'fa-skull-crossbones',
+                color: 'from-red-600 to-pink-700',
+                category: 'Dark Romance',
+                desc: 'Obsesi berlebihan, kecemburuan ekstrem, dan bahaya menjadi bumbu cinta terbaik. Yandere yang rela mengurungmu terasa sangat memikat.',
+                traits: ['Penyuka obsesi cinta tingkat tinggi', 'Suka elemen horor psikologis', 'Suka tantangan bahaya'],
+                tropes: ['Obsessive Love', 'Eyeless Stare', 'Dangerous Jealousy']
+            },
+            {
+                id: 'neko',
+                title: 'KEMONOMIMI & NEKO LOVER',
+                tagline: 'Telinga Kucing & Ekor Lembut Adalah Hak Asasi Estetika.',
+                icon: 'fa-cat',
+                color: 'from-amber-400 to-pink-500',
+                category: 'Aesthetic Feature',
+                desc: 'Sentuhan telinga kucing atau kelinci menaikkan daya tarik karakter seketika! Kebiasaan manja "Nya~" membuat hatimu meleleh.',
+                traits: ['Penyuka telinga & ekor hewan', 'Suka kebiasaan karakter manja', 'Suka Nekomimi / Kitsunemimi'],
+                tropes: ['Nekomimi Maid', 'Tail Wagging Joy', 'Animal Ears']
+            },
+            {
+                id: 'isekai',
+                title: 'ISEKAI ESCAPIST',
+                tagline: 'Lupakan Dunia Nyata, Saatnya Overpowered di Dunia Lain!',
+                icon: 'fa-ghost',
+                color: 'from-indigo-500 to-cyan-500',
+                category: 'Fantasy & Adventure',
+                desc: 'Kamu menyukai pelarian menuju dunia fantasi. Di-reinkarnasi oleh Truck-kun, mendapatkan skill cheat overpower, dan bertualang di dunia sihir.',
+                traits: ['Suka reinkarnasi & cheat skill', 'Menikmati petualangan sihir', 'Suka progres karakter'],
+                tropes: ['Truck-kun Encounter', 'Overpowered MC', 'Fantasy Guild']
+            },
+            {
+                id: 'mecha',
+                title: 'MECHA & SCI-FI TACTICIAN',
+                tagline: 'Rangkaian Robot Raksasa & Taktik Militer Futuristik.',
+                icon: 'fa-robot',
+                color: 'from-blue-600 to-cyan-600',
+                category: 'Tech & Sci-Fi',
+                desc: 'Desain artikulasi robot, kokpit, rudal hibrida, serta pertempuran luar angkasa membuat adrenalinmu memuncak. Kamu menghargai kerumitan mekanis.',
+                traits: ['Suka desain robot & Mecha', 'Suka strategi taktis', 'Menghargai worldbuilding futuristik'],
+                tropes: ['Cockpit View', 'Military Tactics', 'Dogfight Battle']
+            },
+            {
+                id: 'sliceoflife',
+                title: 'SLICE OF LIFE COZY RESIDENT',
+                tagline: 'Segelas Teh Hangat & Kedamaian Hari-Hari Tanpa Konflik.',
+                icon: 'fa-mug-hot',
+                color: 'from-emerald-400 to-teal-600',
+                category: 'Comfy & Relaxing',
+                desc: 'Kamu menonton anime untuk mencari ketenangan (iyashikei). Melihat karakter makan kue dan tertawa santai adalah terapi terbaik bagimu.',
+                traits: ['Menghindari drama berat', 'Suka atmosfer menenangkan', 'Menikmati komedi sehari-hari'],
+                tropes: ['After-school Club', 'Cute Girls Doing Cute Things', 'Cozy Teatime']
+            },
+            {
+                id: 'darkfantasy',
+                title: 'DARK FANTASY SCHOLAR',
+                tagline: 'Tragedi, Siksaan Mental, & Alur Kelam Tanpa Mercy.',
+                icon: 'fa-skull',
+                color: 'from-slate-700 to-gray-900',
+                category: 'Heavy Storytelling',
+                desc: 'Cerita manis membosankan bagimu. Kamu mendambakan plot twist mengejutkan, pengorbanan berdarah, dan realita dunia fantasi yang kejam.',
+                traits: ['Suka cerita berat & psikologis', 'Menikmati penderitaan karakter', 'Suka atmosfer misteri kelam'],
+                tropes: ['Grimdark World', 'Psychological Collapse', 'Bittersweet Ending']
+            },
+            {
+                id: 'oneesan',
+                title: 'ONEE-SAN SEEKER',
+                tagline: 'Kehangatan, Pengasuhan, & Usapan Kepala Karakter Dewasa.',
+                icon: 'fa-heart',
+                color: 'from-pink-500 to-purple-600',
+                category: 'Age & Dynamic',
+                desc: 'Kamu merindukan sosok wanita yang lebih tua, mature, dan keibu-ibuan. Usapan kepala dan pelukan hangat dari Onee-san adalah surga bagimu.',
+                traits: ['Penyuka wanita dewasa', 'Suka diusap kepalanya', 'Menyukai rasa aman'],
+                tropes: ['Ara Ara Energy', 'Caring Big Sister', 'Mature Charm']
+            },
+            {
+                id: 'petite',
+                title: 'CUTE & PETITE ADMIRER',
+                tagline: 'Keimutan Maksimal Karakter Mungil yang Wajib Dilindungi.',
+                icon: 'fa-wand-magic-sparkles',
+                color: 'from-pink-300 to-purple-400',
+                category: 'Character Aesthetics',
+                desc: 'Kamu sangat mengagumi keimutan visual karakter bertubuh imut dan mungil. Keinginanmu adalah melindungi mereka dari marabahaya.',
+                traits: ['Menyukai estetika keimutan', 'Naluri melindungi tinggi', 'Suka desain comel'],
+                tropes: ['Protect That Smile', 'Pocket-sized Companion', 'Moe Overload']
+            },
+            {
+                id: 'chuunibyou',
+                title: 'CHUUNIBYOU DREAMER',
+                tagline: 'Segel di Tangan Kananku Hampir Terlepas... Rasakan Kekuatanku!',
+                icon: 'fa-eye',
+                color: 'from-purple-600 to-indigo-600',
+                category: 'Roleplay & Imagination',
+                desc: 'Kamu memiliki imajinasi liar yang keren! Kamu menyukai pose dramatis, mantra sihir keren, dan konsep aura rahasia di dalam tubuh.',
+                traits: ['Imajinasi tinggi & dramatis', 'Suka nama jurus keren', 'Menikmati kesalahpahaman'],
+                tropes: ['Eye of Darkness', 'Dark Realm', 'Dramatic Pose']
+            },
+            {
+                id: 'harem',
+                title: 'HAREM ARCHITECT',
+                tagline: 'Kenapa Harus Pilih Satu Kalau Bisa Menyukai Semuanya?',
+                icon: 'fa-users',
+                color: 'from-amber-400 to-rose-500',
+                category: 'Romance Multiplicity',
+                desc: 'Memilih satu waifu terasa terlalu membatasi! Kamu sangat menikmati cerita di mana beragam karakter wanita dikagumi bersama.',
+                traits: ['Menikmati dinamika banyak karakter', 'Suka perebutan cinta jenaka', 'Apresiation keberagaman tropes'],
+                tropes: ['Accidental Harem', 'True End Multi-Route', 'Group Chemistry']
+            },
+            {
+                id: 'gothic',
+                title: 'GOTHIC ELEGANCE DEVOTEE',
+                tagline: 'Gaun Renda Hitam, Misteri Kastil, & Anggunnya Gothic Lolita.',
+                icon: 'fa-chess-queen',
+                color: 'from-purple-900 to-slate-900',
+                category: 'Goth & Mystery',
+                desc: 'Estetika victorian Gothic, renda hitam, boneka porcelain, payung gipser, dan keanggunan berkelas tinggi membuat kamu terpana.',
+                traits: ['Suka busana Gothic Lolita', 'Menyukai karakter anggun', 'Apresiasi seni klasik kelam'],
+                tropes: ['Porcelain Doll', 'Gothic Mansion', 'Aristocratic Elegance']
+            },
+            {
+                id: 'seiyuu',
+                title: 'ANISON & SEIYUU DEVOTEE',
+                tagline: 'Suara Seiyuu & OST Anime Adalah Kunci Utama Jiwa Anime.',
+                icon: 'fa-headphones',
+                color: 'from-cyan-400 to-blue-500',
+                category: 'Audio & Music',
+                desc: 'Suara seiyuu papan atas, lagu Insert Song mendebarkan, serta konser virtual idol adalah hal yang paling membuatmu terharu.',
+                traits: ['Penghafal pengisi suara', 'Kolektor lagu OST/OP/ED', 'Penggemar budaya Anison'],
+                tropes: ['Insert Song Powerup', 'Idol Stage', 'Voice Acting Masterclass']
+            },
+            {
+                id: 'tomboy',
+                title: 'TOMBOY & ATHLETIC ENJOYER',
+                tagline: 'Sahabat Cewek Sporty, Kasual, & Seru Diajak Mabar.',
+                icon: 'fa-volleyball',
+                color: 'from-orange-400 to-amber-500',
+                category: 'Gap & Energetic',
+                desc: 'Karakter cewek kasual, jago olahraga, blak-blakan, namun tersipu malu saat memakai gaun adalah kombinasi paling mematikan.',
+                traits: ['Suka karakter sporty', 'Suka kontras saat malu', 'Dinamika sahabat jadi cinta'],
+                tropes: ['Athletic Short Hair', 'Best Friend Romance', 'Casual Hoodie']
+            },
+            {
+                id: 'villainess',
+                title: 'VILLAINESS & BAD GIRL LOVER',
+                tagline: 'Karakter Antagonis Licik, Karismatik, & Berkuasa.',
+                icon: 'fa-gem',
+                color: 'from-rose-500 to-purple-800',
+                category: 'Antagonist Charm',
+                desc: 'Pahlawan lugu membosankan! Kamu lebih terpesona oleh antagonis cewek (Villainess) yang memiliki tatapan tajam dan kecerdasan.',
+                traits: ['Suka karakter antagonis', 'Apresiasi karisma jahat', 'Menikmati Isekai Villainess'],
+                tropes: ['Ohohoho Laugh', 'Noble Villainess', 'Reformation Plot']
+            },
+            {
+                id: 'gapmoe',
+                title: 'GAP MOE SPECIALIST',
+                tagline: 'Pesona Kontras Sifat Karakter yang Bikin Kaget & Meleleh.',
+                icon: 'fa-mask',
+                color: 'from-pink-400 to-indigo-500',
+                category: 'Character Dynamic',
+                desc: 'Ketua OSIS galak yang ternyata suka main game santai? Kejutan kontras kepribadian (Gap Moe) adalah hal favoritmu!',
+                traits: ['Suka perubahan sifat kaget', 'Melihat sisi rahasia', 'Sensasi kejutan emosional'],
+                tropes: ['Secret Hobby', 'Strict Boss Soft Inside', 'Contrast Charm']
+            },
+            {
+                id: 'pureheart',
+                title: 'PURE PURE HEART',
+                tagline: 'Murni, Suci, Bebas Ecchi, & Berfokus Pada Emosi Tulus.',
+                icon: 'fa-heart-circle-check',
+                color: 'from-emerald-300 to-teal-400',
+                category: 'Wholesome Pure',
+                desc: 'Kamu memiliki jiwa murni! Kamu mengabaikan unsur fanservice, dan hanya menginginkan cerita persahabatan serta emosi murni.',
+                traits: ['Anti-ecchi berlebihan', 'Fokus pada kehangatan emosi', 'Menyukai kisah wholesome'],
+                tropes: ['Hand Holding', 'Pure Confession', 'Wholesome Friendship']
+            },
+            {
+                id: 'cosplay',
+                title: 'COSPLAY & VISUAL CRAFT',
+                tagline: 'Keindahan Seni Kostum, Detail Visual, & Kualitas Animasi.',
+                icon: 'fa-palette',
+                color: 'from-pink-500 to-cyan-400',
+                category: 'Visual & Art',
+                desc: 'Mata seni kamu sangat tajam! Kamu mengagumi kompleksitas desain kostum, cosplay dunia nyata, dan kualitas animasi sakuga.',
+                traits: ['Apresiasi kualitas animasi', 'Pengagum seni cosplay', 'Sensitif pada estetika'],
+                tropes: ['Sakuga Flex', 'Cosplay Transformation', 'Visual Masterpiece']
+            },
+            {
+                id: 'lore',
+                title: 'PLOT & LORE ARCHEOLOGIST',
+                tagline: 'Membaca Worldbuilding, Teori Gelap, & Sejarah Dunia Fiksi.',
+                icon: 'fa-scroll',
+                color: 'from-amber-600 to-yellow-700',
+                category: 'Intellectual Story',
+                desc: 'Kamu adalah peneliti sejarah fiksi! Kamu membaca wiki anime/game jam 2 pagi demi memahami sejarah dunia fiksi dan foreshadowing.',
+                traits: ['Suka cerita tersembunyi', 'Menganalisis teori & lore', 'Suka naskah tebal'],
+                tropes: ['Deep Worldbuilding', 'Hidden Lore', 'Complex Magic System']
+            },
+            {
+                id: 'cyberpunk',
+                title: 'CYBERPUNK & DYSTOPIA HACKER',
+                tagline: 'Lampu Neon, Organ Siber, & Masa Depan Distopia Gelap.',
+                icon: 'fa-microchip',
+                color: 'from-pink-500 to-cyan-400',
+                category: 'Sci-Fi Aesthetics',
+                desc: 'Visual hujan di kota neon, implan tubuh futuristik, peretasan data, dan perlawanan korporasi adalah estetika favoritmu.',
+                traits: ['Suka estetika neon & distopia', 'Menikmati tema peretasan', 'Suka atmosfer synthwave'],
+                tropes: ['High Tech Low Life', 'Neural Link', 'Neon Rain']
+            },
+            {
+                id: 'sensei',
+                title: 'SENSEI & MENTOR AFFINITY',
+                tagline: 'Bimbingan, Karisma Dewasa, & Hubungan Pembimbing-Murid.',
+                icon: 'fa-chalkboard-user',
+                color: 'from-blue-500 to-indigo-700',
+                category: 'Mentor Dynamic',
+                desc: 'Sosok guru atau pembimbing yang bijak dan hebat saat bertarung selalu memikat perhatianmu dengan kharisma dewasa.',
+                traits: ['Suka karakter guru/dosen', 'Mengagumi bimbingan', 'Dinamika pembimbing-murid'],
+                tropes: ['Teacher Dynamic', 'Wise Mentor', 'Cool Sensei']
+            },
+            {
+                id: 'monstergirl',
+                title: 'FANTASY BIOLOGIST & MONSTER GIRL',
+                tagline: 'Eksotisme Estetika Karakter Non-Manusia & Ras Fantasi.',
+                icon: 'fa-dragon',
+                color: 'from-emerald-500 to-lime-600',
+                category: 'Fantasy Anatomy',
+                desc: 'Karakter gadis naga, elf, atau centaur memberikan keberagaman visual eksotis yang sangat kamu nikmati.',
+                traits: ['Menyukai desain non-manusia', 'Apresiasi ras fantasi', 'Suka eksotisme fiksi'],
+                tropes: ['Dragon Girl', 'Elf Longevity', 'Sub-Human Charm']
+            },
+            {
+                id: 'school',
+                title: 'YOUTH & SCHOOL LIFE NOSTALGIC',
+                tagline: 'Masa Remaja di Atap Sekolah, Festival Budaya, & Kenangan.',
+                icon: 'fa-graduation-cap',
+                color: 'from-sky-400 to-indigo-400',
+                category: 'School Youth',
+                desc: 'Atap sekolah saat matahari terbenam dan festival budaya membawa rasa nostalgia manis tentang kehidupan remaja.',
+                traits: ['Suka setting sekolah', 'Nostalgia kehidupan remaja', 'Menikmati festival sekolah'],
+                tropes: ['Rooftop Lunch', 'Cultural Festival', 'Gym Confession']
+            },
+            {
+                id: 'rivalry',
+                title: 'RIVALRY TO ROMANCE ENTHUSIAST',
+                tagline: 'Dari Musuh Bebuyutan Menjadi Pasangan Sejati.',
+                icon: 'fa-hand-fist',
+                color: 'from-red-500 to-amber-500',
+                category: 'Dynamic Romance',
+                desc: 'Pertarungan sengit yang perlahan berubah menjadi rasa hormat dan cinta adalah tropa favoritmu sepanjang masa.',
+                traits: ['Suka musuh jadi cinta', 'Dinamika perdebatan sengit', 'Hormat di balik persaingan'],
+                tropes: ['Enemies to Lovers', 'Back-to-Back Battle', 'Respectful Rival']
+            },
+            {
+                id: 'heroic',
+                title: 'PURE HEROIC JUSTICE SEEKER',
+                tagline: 'Semangat Pantang Menyerah, Keadilan, & Persahabatan!',
+                icon: 'fa-shield-halved',
+                color: 'from-amber-500 to-red-500',
+                category: 'Shonen Spirit',
+                desc: 'Kamu pemilik jiwa Shonen sejati! Pahlawan yang tidak pernah menyerah demi persahabatan selalu membakar semangatmu.',
+                traits: ['Suka persahabatan & perjuangan', 'Terinspirasi oleh pahlawan', 'Suka pertarungan klimaks'],
+                tropes: ['Power of Friendship', 'Never Give Up', 'Final Powerup']
+            },
+            {
+                id: 'vtuber',
+                title: 'VTUBER CULTIST & STREAMER SIMP',
+                tagline: 'Avatar L2D, Stream Jam 2 Pagi, & Budaya Superchat.',
+                icon: 'fa-vr-cardboard',
+                color: 'from-pink-400 to-cyan-400',
+                category: 'Modern Digital Subculture',
+                desc: 'Kamu mengikuti perkembangan Live2D avatar, kebiasaan streaming VTuber, lore debut, dan dinamika komunitas chat.',
+                traits: ['Penyuka animasi Live2D', 'Suka momen stream spontan', 'Mengikuti komunitas VTuber'],
+                tropes: ['Unarchived Karaoke', 'L2D Rigging Flex', 'Superchat Reading']
+            },
+            {
+                id: 'megane',
+                title: 'MEGANE / GLASSES CONNOISSEUR',
+                tagline: 'Kacamata Adalah Aksesori Terbaik Pembawa Intelektualitas.',
+                icon: 'fa-glasses',
+                color: 'from-blue-400 to-indigo-500',
+                category: 'Aesthetic Feature',
+                desc: 'Aksesori kacamata memberikan kenaikan daya tarik luar biasa pada karakter, baik pria maupun wanita!',
+                traits: ['Sangat menyukai kacamata', 'Mengagumi aura intelektual', 'Suka gestur membetulkan kacamata'],
+                tropes: ['Glasses Adjustment', 'Meganekko Charm', 'Intellectual Beauty']
+            },
+            {
+                id: 'gyaru',
+                title: 'GYARU & FASHION ICON LOVER',
+                tagline: 'Rambut Pirang, Make-up Mewah, & Kepribadian Super Ceria.',
+                icon: 'fa-gem',
+                color: 'from-pink-500 to-amber-400',
+                category: 'Modern Fashion',
+                desc: 'Gaya busana Gyaru yang mencolok, percaya diri tinggi, dan kepribadian ceria yang sangat baik hati membuatmu terpikat.',
+                traits: ['Suka estetika Gyaru/Gal', 'Suka sifat ceria blak-blakan', 'Apresiasi gaya busana modern'],
+                tropes: ['Blonde Gyaru', 'Fashionista Heart', 'Cheerful Mind']
+            },
+            {
+                id: 'retro',
+                title: 'RETRO 80S/90S VINTAGE OTAKU',
+                tagline: 'Seni Hand-drawn Cel Animation, City Pop, & Nostalgia.',
+                icon: 'fa-compact-disc',
+                color: 'from-purple-600 to-pink-500',
+                category: 'Vintage Aesthetic',
+                desc: 'Animasi cel tradisional 80-90an, musik City Pop, dan estetika зерни visual masa lalu selalu menjadi harta karun bagimu.',
+                traits: ['Penyuka gaya retro 80s/90s', 'Pencinta musik City Pop', 'Apresiasi cel animation'],
+                tropes: ['Grainy Aesthetics', 'City Pop Vibes', 'Classic Sci-Fi']
+            },
+            {
+                id: 'otome',
+                title: 'OTOME & REVERSE HAREM DREAMER',
+                tagline: 'Dikelilingi Pria-Pria Tampan Karismatik Beragam Tipe.',
+                icon: 'fa-heart-pulse',
+                color: 'from-rose-400 to-purple-500',
+                category: 'Romance Multiplicity',
+                desc: 'Kamu menyukai dinamika Reverse Harem di mana protagonis perempuan dikelilingi oleh banyak karakter pria rupawan.',
+                traits: ['Suka genre Otome Game', 'Dinamika Reverse Harem', 'Apresiasi karakter pria tampan'],
+                tropes: ['Ikemen Court', 'Multiple Route Romance', 'Prince Charming']
+            },
+            {
+                id: 'gacha',
+                title: 'GACHA ADDICT & GAMBLER',
+                tagline: 'Kilatan Warna Emas/Pelangi Saat Pull Adalah Dopamin Sejati.',
+                icon: 'fa-dice-d20',
+                color: 'from-amber-400 to-cyan-400',
+                category: 'Gaming Subculture',
+                desc: 'Sensasi keberuntungan saat menarik banner gacha game otaku adalah hiburan puncak yang selalu memicu dopaminmu.',
+                traits: ['Penyuka gacha games', 'Menikmati manajemen pity & pull', 'Suka mengumpulkan karakter rti tinggi'],
+                tropes: ['Rainbow Pull Light', 'Pity System Victory', 'SSR Collection']
+            },
+            {
+                id: 'foodie',
+                title: 'ANIME FOODIE & COOKING ENTHUSIAST',
+                tagline: 'Visual Makanan Berkilau & Reaksi Lezat Berlebihan.',
+                icon: 'fa-utensils',
+                color: 'from-orange-400 to-red-500',
+                category: 'Comfy & Lifestyle',
+                desc: 'Seni menggambarkan hidangan makanan yang berkilau dan reaksi lezat karakter saat makan membuat liurmu menetes.',
+                traits: ['Suka tema kuliner & masak', 'Apresiasi visual makanan', 'Menikmati reaksi makan'],
+                tropes: ['Food Orgasm Reaction', 'Shiny Ramen Bowl', 'Cooking Competition']
+            },
+            {
+                id: 'gothiclolita',
+                title: 'DOLL & PORCELAIN COLLECTOR',
+                tagline: 'Boneka Cantik Berbusana Mewah & Estetika Koleksi.',
+                icon: 'fa-chess-knight',
+                color: 'from-pink-900 to-purple-900',
+                category: 'Goth & Collection',
+                desc: 'Keindahan boneka porselen, figure bertingkat tinggi, serta gaun berbahan renda halus memberikan rasa ketenangan estetis.',
+                traits: ['Suka koleksi figure/doll', 'Menyukai kerapian estetika', 'Suka karakter seperti boneka'],
+                tropes: ['Porcelain Skin', 'Dollhouse Setting', 'Intricate Frills']
+            },
+            {
+                id: 'idoldream',
+                title: 'IDOL PRODUCER & STAGE FAN',
+                tagline: 'Mendukung Impian Idol Dari Panggung Kecil Menuju Dome!',
+                icon: 'fa-star',
+                color: 'from-pink-400 to-yellow-400',
+                category: 'Audio & Stage',
+                desc: 'Semangat mendukung pertumbuhan grup idol dari panggung kecil sampai terkenal selalu membuat dadamu bergetar haru.',
+                traits: ['Suka genre Idol', 'Menikmati koreografi panggung', 'Dukungan penuh pada impian'],
+                tropes: ['Penlight Glow', 'Center Position', 'Rooftop Practice']
+            },
+            {
+                id: 'deredere',
+                title: 'DEREDERE SUNSHINE LOVER',
+                tagline: 'Cinta Tanpa Henti, Ceria, & Selalu Menebar Senyuman!',
+                icon: 'fa-sun',
+                color: 'from-amber-300 to-pink-400',
+                category: 'Personality Trope',
+                desc: 'Karakter yang selalu ceria, menunjukkan rasa cintanya secara terang-terangan tanpa gengsi adalah energi positif terbaik.',
+                traits: ['Suka kepribadian super ceria', 'Suka pengungkapan cinta jujur', 'Energi positif alami'],
+                tropes: ['Glamping Smile', 'Direct Love Expression', 'Endless Energy']
+            },
+            {
+                id: 'bodysuit',
+                title: 'PLUGSUIT & BODYSUIT ADMIRER',
+                tagline: 'Estetika Lekuk Futuristik Pakaian Ketat Sci-Fi.',
+                icon: 'fa-person-running',
+                color: 'from-cyan-500 to-purple-600',
+                category: 'Aesthetic Feature',
+                desc: 'Pakaian plugsuit pilot mecha atau bodysuit futuristik memberikan kombinasi luar biasa antara sci-fi dan estetika tubuh.',
+                traits: ['Suka desain plugsuit/bodysuit', 'Apresiasi lekuk visual sci-fi', 'Suka tema pilot mecha'],
+                tropes: ['Plugsuit Sync', 'Futuristic Latex', 'Sleek Design']
+            },
+            {
+                id: 'thriller',
+                title: 'PSYCHOLOGICAL THRILLER MIND',
+                tagline: 'Permainan Pikiran, Mind Games, & Plot Twist Jenius.',
+                icon: 'fa-brain',
+                color: 'from-purple-800 to-slate-900',
+                category: 'Intellectual Story',
+                desc: 'Adu kecerdasan antar dua karakter jenius, permainan bertahan hidup, dan teka-teki psikologis adalah makanan favoritmu.',
+                traits: ['Suka anime mind games', 'Suka teka-teki jenius', 'Menikmati ketegangan psikologis'],
+                tropes: ['Death Game Rules', 'Keikaku Door Reveal', 'Genius Battle']
+            },
+            {
+                id: 'tsundereboy',
+                title: 'TSUNDERE & SHY BOY ADMIRER',
+                tagline: 'Laki-Laki Pemalu & Gengsi yang Sangat Manis Saat Malu.',
+                icon: 'fa-face-smile-wink',
+                color: 'from-blue-400 to-rose-400',
+                category: 'Personality Trope',
+                desc: 'Karakter pria yang berusaha terlihat keren padahal sebenarnya sangat pemalu dan mudah tersipu saat dipuji.',
+                traits: ['Suka karakter cowok pemalu', 'Suka dinamika tsundere pria', 'Sensasi imut yang tersembunyi'],
+                tropes: ['Blushing Guy', 'Cool Guy Soft Inside', 'Awkward Confession']
+            }
+        ];
 
+        const QUESTIONS = [
+            { id: 1, cat: "Personality Trope", text: "Saya lebih menyukai karakter yang terlihat dingin/datar di luar, tetapi memiliki perhatian tersembunyi yang sangat hangat (Kuudere).", weight: { kuudere: 3, gapmoe: 1 } },
+            { id: 2, cat: "Dark Romance", text: "Karakter yang memiliki rasa cinta sangat obsesif, cemburu ekstrem, atau bahkan agak berbahaya (Yandere) justru terasa sangat menarik.", weight: { yandere: 3, darkfantasy: 1 } },
+            { id: 3, cat: "Personality Trope", text: "Karakter yang pura-pura galak dan gengsi mengakui perasaannya (Tsundere) adalah puncak hiburan anime.", weight: { tsundere: 3, gapmoe: 1 } },
+            { id: 4, cat: "Fantasy & Adventure", text: "Saya sangat menikmati cerita berpindah ke dunia lain (Isekai) dan mendapatkan kemampuan ajaib overpower.", weight: { isekai: 3, chuunibyou: 1 } },
+            { id: 5, cat: "Aesthetic & Service", text: "Detail seragam maid atau pakaian pelayanan selalu meningkatkan nilai estetika karakter secara signifikan.", weight: { maid: 3, gothic: 1 } },
+            { id: 6, cat: "Comfy & Relaxing", text: "Cerita santai tanpa konflik berat (Slice of Life) jauh lebih menyembuhkan daripada anime pertarungan yang bikin stres.", weight: { sliceoflife: 3, pureheart: 1 } },
+            { id: 7, cat: "Romance Spectrum", text: "Saya menganggap ikatan cinta antar sesama karakter perempuan (Yuri) terasa lebih murni, estetik, dan indah.", weight: { yuri: 3, pureheart: 1 } },
+            { id: 8, cat: "Aesthetic Feature", text: "Sentuhan fisik seperti telinga kucing, serigala, atau ekor (Kemonomimi) membuat karakter berkali-kali lipat lebih menggemaskan.", weight: { neko: 3, petite: 1 } },
+            { id: 9, cat: "Heavy Storytelling", text: "Suasana cerita yang gelap, teka-teki psikologis, tragedi, dan gore jauh lebih memikat daripada cerita yang terlalu ceria.", weight: { darkfantasy: 3, thriller: 2 } },
+            { id: 10, cat: "Character Aesthetics", text: "Karakter dengan postur tubuh mungil dan imut (Cute/Petite) memicu naluri pelindung yang sangat kuat dalam diri saya.", weight: { petite: 3, neko: 1 } },
+            { id: 11, cat: "Fetish & Dynamics", text: "Saya menyukai dinamika di mana saya diposisikan untuk dipatuhi, diatur, atau diejek manis oleh karakter wanita dominan.", weight: { masochist: 3, dominant: -1 } },
+            { id: 12, cat: "Tech & Sci-Fi", text: "Desain robot raksasa (Mecha), senjata futuristik, dan taktik militer sci-fi selalu berhasil membuat saya kagum.", weight: { mecha: 3, cyberpunk: 1 } },
+            { id: 13, cat: "Gap & Energetic", text: "Karakter cewek tomboy yang aktif, berolahraga, dan santai seperti sahabat cowok adalah tipe idaman saya.", weight: { tomboy: 3, school: 1 } },
+            { id: 14, cat: "Age & Dynamic", text: "Karakter wanita dewasa yang keibu-ibuan, penyayang, dan suka mengusap kepala (Onee-san) memberikan kenyamanan tiada tanding.", weight: { oneesan: 3, sensei: 1 } },
+            { id: 15, cat: "Culture & Ecchi", text: "Saya menikmati konten berunsur ecchi, adegan fanservice, dan materi tanpa sensor tanpa perlu merasa malu.", weight: { gooner: 3, pureheart: -2 } },
+            { id: 16, cat: "Wholesome Devotion", text: "Saya tipe otaku yang sangat setia: hanya memiliki 1 Waifu utama dan tidak tertarik mengganti-gantinya.", weight: { monogamist: 3, harem: -2 } },
+            { id: 17, cat: "Romance Multiplicity", text: "Kenapa harus memilih satu jika bisa menyukai semuanya? Pilihan harem yang ramai dan beragam adalah yang terbaik.", weight: { harem: 3, monogamist: -2 } },
+            { id: 18, cat: "Goth & Mystery", text: "Gaya busana Gothic Lolita, gaun renda hitam, dan keanggunan misterius terasa sangat memikat.", weight: { gothic: 3, gothiclolita: 2 } },
+            { id: 19, cat: "Audio & Music", text: "Suara pengisi suara (Seiyuu), lagu tema (OST), dan pertunjukan konser musik memiliki peran sangat besar dalam menyukai anime/game.", weight: { seiyuu: 3, idoldream: 2 } },
+            { id: 20, cat: "Mentor Dynamic", text: "Karakter guru, dosen, atau pembimbing senior (Sensei) memiliki kharisma dewasa yang sangat menarik.", weight: { sensei: 3, oneesan: 1 } },
+            { id: 21, cat: "Romance Spectrum", text: "Dinamika romansa antar karakter pria (BL / Yaoi) terasa sangat menarik dan penuh emosi mendalam.", weight: { bl: 3 } },
+            { id: 22, cat: "Fantasy Anatomy", text: "Karakter ras fantasi atau setengah monster (Gadis Naga, Elf, Harpy) terasa lebih eksotis dan estetik dibanding manusia biasa.", weight: { monstergirl: 3, isekai: 1 } },
+            { id: 23, cat: "Roleplay & Imagination", text: "Saya suka membayangkan memiliki kekuatan rahasia terselubung di mata atau tangan kanan seperti konsep Chuunibyou.", weight: { chuunibyou: 3, isekai: 1 } },
+            { id: 24, cat: "Antagonist Charm", text: "Karakter antagonis wanita (Villainess) yang licik, berkuasa, dan elegan jauh lebih menarik daripada pahlawan utama yang polos.", weight: { villainess: 3, dominant: 1 } },
+            { id: 25, cat: "Character Dynamic", text: "Perubahan sifat mendadak yang mengejutkan (Gap Moe) selalu berhasil membuat hati saya berdebar.", weight: { gapmoe: 3, tsundere: 1, kuudere: 1 } },
+            { id: 26, cat: "Wholesome Pure", text: "Konten anime/game idealnya bersih dari ecchi berlebihan; saya hanya berfokus pada kehangatan cerita dan emosi murni.", weight: { pureheart: 3, gooner: -3 } },
+            { id: 27, cat: "Sci-Fi Aesthetics", text: "Visual kota bermandikan lampu neon, peretasan data, dan dunia cyberpunk selalu memicu adrenalin saya.", weight: { cyberpunk: 3, mecha: 1 } },
+            { id: 28, cat: "School Youth", text: "Atmosfer sekolah Jepang, festival budaya, dan momen masa muda selalu membuat saya rindu walau belum pernah mengalaminya.", weight: { school: 3, sliceoflife: 1 } },
+            { id: 29, cat: "Visual & Art", text: "Saya lebih mengagumi keindahan seni visual, detail kostum cosplay, dan kualitas animasi daripada alur ceritanya.", weight: { cosplay: 3, seiyuu: 1 } },
+            { id: 30, cat: "Intellectual Story", text: "Saya sangat senang menganalisis lore tersembunyi, sistem sihir yang rumit, dan sejarah dalam sebuah dunia fiksi.", weight: { lore: 3, darkfantasy: 1 } },
+            { id: 31, cat: "Dynamic Romance", text: "Persaingan ketat antar musuh yang perlahan-lahan berubah menjadi benih cinta sejati adalah tropa terbaik.", weight: { rivalry: 3, tsundere: 1 } },
+            { id: 32, cat: "Fetish & Dynamics", text: "Saya menikmati posisi dominan di mana saya yang membimbing atau mengontrol karakter yang patuh/pemalu.", weight: { dominant: 3, masochist: -2 } },
+            { id: 33, cat: "Shonen Spirit", text: "Momen pahlawan bertarung pantang menyerah demi persahabatan selalu membuat mata saya berkaca-kaca.", weight: { heroic: 3, isekai: 1 } },
+            { id: 34, cat: "Modern Digital Subculture", text: "Saya rajin menonton VTuber, menyukai avatar Live2D, dan mengikuti perkembangan budaya streamer virtual.", weight: { vtuber: 4, seiyuu: 1 } },
+            { id: 35, cat: "Aesthetic Feature", text: "Karakter yang menggunakan kacamata (Megane) memberikan aura intelektual yang sangat menawan.", weight: { megane: 4 } },
+            { id: 36, cat: "Modern Fashion", text: "Gaya busana Gyaru yang fashionable, ceria, dan penuh rasa percaya diri sangat menarik perhatian saya.", weight: { gyaru: 4, tomboy: 1 } },
+            { id: 37, cat: "Vintage Aesthetic", text: "Saya sangat mengagumi gaya animasi retro era 80-90an, musik City Pop, dan nuansa cel-animation klasik.", weight: { retro: 4, cyberpunk: 1 } },
+            { id: 38, cat: "Romance Multiplicity", text: "Saya menyukai cerita Reverse Harem / Otome di mana protagonis dikelilingi oleh banyak pria rupawan.", weight: { otome: 4, bl: 1 } },
+            { id: 39, cat: "Gaming Subculture", text: "Sensasi menarik banner gacha dan mendapatkan kilatan kartu langka adalah kepuasan tersendiri.", weight: { gacha: 4 } },
+            { id: 40, cat: "Comfy & Lifestyle", text: "Detail visual makanan yang lezat (Anime Food) dan adegan memasak selalu membuat saya merasa rileks.", weight: { foodie: 4, sliceoflife: 1 } },
+            { id: 41, cat: "Goth & Collection", text: "Saya sangat mengagumi keindahan boneka porselen dan koleksi figure dengan detail renda yang rumit.", weight: { gothiclolita: 4, gothic: 2 } },
+            { id: 42, cat: "Audio & Stage", text: "Melihat perjuangan grup idol berkembang dari panggung lokal menuju stadion besar selalu memberikan inspirasi.", weight: { idoldream: 4, seiyuu: 1 } },
+            { id: 43, cat: "Personality Trope", text: "Karakter yang selalu ceria, memberikan kasih sayang tanpa canggung (Deredere) adalah tipe penyemangat terbaik.", weight: { deredere: 4, pureheart: 1 } },
+            { id: 44, cat: "Aesthetic Feature", text: "Pakaian ketat sci-fi seperti plugsuit pilot mecha atau bodysuit memberikan estetika visual yang luar biasa.", weight: { bodysuit: 4, mecha: 1 } },
+            { id: 45, cat: "Intellectual Story", text: "Pertarungan teka-teki logika, mind games, dan strategi jitu jauh lebih mendebarkan daripada pertarungan fisik.", weight: { thriller: 4, lore: 1 } },
+            { id: 46, cat: "Personality Trope", text: "Saya sangat menyukai karakter pemalu (Dandere) yang perlahan-lahan memberanikan diri untuk tersenyum.", weight: { dandere: 3, pureheart: 1 } },
+            { id: 47, cat: "Personality Trope", text: "Karakter pria yang berusaha sok keren padahal sebenarnya sangat pemalu dan gampang tersipu (Tsundere Boy) itu imut.", weight: { tsundereboy: 4, otome: 1 } },
+            { id: 48, cat: "Aesthetic & Service", text: "Sentuhan pakaian kasual kebesaran seperti oversized hoodie pada karakter cewek terasa sangat seksi dan nyaman.", weight: { tomboy: 2, gapmoe: 1 } },
+            { id: 49, cat: "Heavy Storytelling", text: "Penderitaan dan perjuangan keras karakter dari titik nol di dunia yang kejam memberikan kepuasan cerita tersendiri.", weight: { darkfantasy: 2, heroic: 1 } },
+            { id: 50, cat: "Wholesome Devotion", text: "Momen romantis sederhana seperti pegangan tangan atau usapan kepala terasa jauh lebih menyentuh daripada adegan fisik berlebihan.", weight: { pureheart: 2, monogamist: 2 } },
+            { id: 51, cat: "Culture & Ecchi", text: "Saya sering mencari informasi versi tanpa sensor atau artbook resmi dari karya otaku favorit saya.", weight: { gooner: 2, cosplay: 1 } },
+            { id: 52, cat: "General Culture", text: "Bagi saya, menjadi Otaku adalah tentang mengapresiasi passion, estetika visual, dan kebebasan mengekspresikan hobi.", weight: { pureheart: 1, monogamist: 1, heroic: 1 } }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let isAudioMuted = false;
+        let userName = "John Doe";
+
+        // Web Audio API Synthesis
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playSound(freq = 440, type = 'sine', duration = 0.08) {
             if (isAudioMuted || !audioCtx) return;
             try {
@@ -587,7 +1154,7 @@
             const btn = document.getElementById('soundToggleBtn');
             btn.innerHTML = isAudioMuted ? 
                 '<i class="fa-solid fa-volume-xmark text-gray-500"></i>' : 
-                '<i class="fa-solid fa-volume-high text-pink-400"></i>';
+                '<i class="fa-solid fa-volume-high text-xs sm:text-sm text-pink-400"></i>';
             showToast(isAudioMuted ? 'Efek suara dimatikan' : 'Efek suara diaktifkan');
         }
 
@@ -642,12 +1209,9 @@
         }
         animateParticles();
 
-        /* ==========================================================================
-           QUIZ ENGINE & NAVIGATION
-           ========================================================================== */
         function startQuiz() {
             const nameInput = document.getElementById('userNameInput').value.trim();
-            userName = nameInput !== '' ? nameInput : 'Otaku Member';
+            userName = nameInput !== '' ? nameInput : 'John Doe';
             playSound(650, 'sine');
             document.getElementById('screenLanding').classList.add('hidden');
             document.getElementById('screenQuiz').classList.remove('hidden');
@@ -716,9 +1280,6 @@
             }
         }
 
-        /* ==========================================================================
-           VECTOR SCORING ENGINE & SPECTRUM COMPUTATION
-           ========================================================================== */
         function calculateResults() {
             playSound(850, 'triangle', 0.25);
 
@@ -828,9 +1389,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* ==========================================================================
-           MODALS & ENCYCLOPEDIA LOGIC
-           ========================================================================== */
         function openResearchModal() {
             playSound(450, 'sine');
             document.getElementById('researchModal').classList.remove('hidden');
@@ -882,9 +1440,6 @@
             renderEncyclopediaList(filtered);
         }
 
-        /* ==========================================================================
-           EXPORT & UTILITY FUNCTIONS
-           ========================================================================== */
         function showToast(msg) {
             const toast = document.getElementById('toastNotification');
             document.getElementById('toastMessage').innerText = msg;
@@ -897,7 +1452,7 @@
         function copyResultText() {
             const title = document.getElementById('resultTitle').innerText;
             const tagline = document.getElementById('resultTagline').innerText;
-            const textToCopy = `✨ HASIL OTAKU SPECTRUM TEST PRO ✨\n\nPersona Otaku Utama: ${title}\n${tagline}\n\nCoba tes selera otaku berbasis riset kamu di Otaku Spectrum Pro! 🚀`;
+            const textToCopy = `✨ HASIL OTAKU SPECTRUM TEST PRO ✨\n\nNama: ${userName}\nPersona Otaku Utama: ${title}\n${tagline}\n\nCoba tes selera otaku berbasis riset kamu di Otaku Spectrum Pro! 🚀`;
             
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(textToCopy);
