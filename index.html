@@ -267,8 +267,13 @@
                         </div>
                         <h3 class="text-xs text-gray-300">Diberikan Kepada: <span id="displayUserName" class="text-pink-400 font-bold font-orbitron text-sm">John Doe</span></h3>
                     </div>
-                    <div id="matchScoreBadge" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 border border-pink-500/40 text-pink-300 font-orbitron font-bold text-xs sm:text-sm">
-                        98% Affinity Match
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <div id="totalRarityBadge" class="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-white font-orbitron font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md">
+                            <!-- Injected via JS -->
+                        </div>
+                        <div id="matchScoreBadge" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 border border-pink-500/40 text-pink-300 font-orbitron font-bold text-xs sm:text-sm">
+                            98% Affinity Match
+                        </div>
                     </div>
                 </div>
 
@@ -384,6 +389,24 @@
                             <div class="w-full bg-gray-900 h-2.5 rounded-full overflow-hidden border border-white/5">
                                 <div id="dimAestheticBar" class="bg-emerald-500 h-full rounded-full transition-all duration-1000 w-[85%]"></div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Composite Rarity Score Box -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-purple-900/40 via-pink-900/30 to-amber-900/30 border border-purple-500/30 space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-gem text-amber-400 text-sm"></i>
+                                <span class="text-xs font-bold text-white uppercase tracking-wider">Nilai Total Kelangkaan Persona Spektrum</span>
+                            </div>
+                            <span id="totalRarityValText" class="font-orbitron font-bold text-amber-300 text-sm">88.5% Index</span>
+                        </div>
+                        <div class="w-full bg-gray-900 h-3 rounded-full overflow-hidden border border-white/10 p-0.5">
+                            <div id="totalRarityBar" class="h-full bg-gradient-to-r from-cyan-400 via-purple-500 to-amber-400 rounded-full transition-all duration-1000 w-[88.5%]"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-[11px] text-gray-400">
+                            <span>Tingkat Kelangkaan Gabungan: <strong id="totalRarityTierName" class="text-pink-300 font-orbitron">Super Langka</strong></span>
+                            <span class="text-gray-500 font-mono">Formula Penjumlahan Vektor Multi-Archetype</span>
                         </div>
                     </div>
                 </div>
@@ -574,6 +597,7 @@
         let userAnswers = [];
         let isAudioMuted = false;
         let selectedRarityFilter = 'All';
+        let lastResultData = null; // Store result details for certificate export
 
         // Lazy AudioContext initialization to prevent browser autoplay policy warnings
         let audioCtx = null;
@@ -1416,6 +1440,14 @@
         /* ==========================================================================
            SCORING & SPECTRUM VECTOR CALCULATOR
            ========================================================================== */
+        const RARITY_POINTS = {
+            'Umum': 20,
+            'Cukup Langka': 40,
+            'Sangat Langka': 60,
+            'Super Langka': 80,
+            'Legendaris': 100
+        };
+
         function calculateResults() {
             playSound(800, 'triangle', 0.2);
 
@@ -1449,6 +1481,26 @@
             const topArchetype = sortedArchetypes[0];
             const runnerUps = sortedArchetypes.slice(1, 5);
 
+            // Calculate Total Composite Rarity Score (0% - 100%)
+            let weightedRaritySum = 0;
+            let weightSum = 0;
+            sortedArchetypes.slice(0, 6).forEach((a, idx) => {
+                const weightMultiplier = Math.max(0.1, (6 - idx) * (a.score > 0 ? a.score : 1));
+                const rPts = RARITY_POINTS[a.rarity] || 20;
+                weightedRaritySum += rPts * weightMultiplier;
+                weightSum += weightMultiplier;
+            });
+
+            let totalRarityPct = Math.min(99, Math.max(25, Math.round(weightedRaritySum / (weightSum || 1))));
+
+            let overallRarityTier = 'Umum';
+            if (totalRarityPct >= 85) overallRarityTier = 'Legendaris';
+            else if (totalRarityPct >= 70) overallRarityTier = 'Super Langka';
+            else if (totalRarityPct >= 52) overallRarityTier = 'Sangat Langka';
+            else if (totalRarityPct >= 35) overallRarityTier = 'Cukup Langka';
+
+            const overallRarityObj = RARITY_CONFIG[overallRarityTier] || RARITY_CONFIG['Umum'];
+
             const calcDimPct = (val) => Math.min(100, Math.max(25, Math.round((val / 45) * 100)));
             const dimPct = {
                 wholesome: calcDimPct(dimensions.wholesome),
@@ -1458,7 +1510,16 @@
                 aesthetic: calcDimPct(dimensions.aesthetic)
             };
 
-            renderResultScreen(topArchetype, runnerUps, dimPct);
+            const rarityData = {
+                totalPct: totalRarityPct,
+                tier: overallRarityTier,
+                config: overallRarityObj
+            };
+
+            // Store for Certificate Generator
+            lastResultData = { topArchetype, runnerUps, dimPct, rarityData };
+
+            renderResultScreen(topArchetype, runnerUps, dimPct, rarityData);
 
             if (typeof confetti === 'function') {
                 confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
@@ -1468,7 +1529,7 @@
         /* ==========================================================================
            RENDER RESULT SCREEN
            ========================================================================== */
-        function renderResultScreen(top, runnerUps, dims) {
+        function renderResultScreen(top, runnerUps, dims, rarityData) {
             document.getElementById('screenLanding').classList.add('hidden');
             document.getElementById('screenQuiz').classList.add('hidden');
             document.getElementById('screenResult').classList.remove('hidden');
@@ -1479,6 +1540,16 @@
             // Match Score Badge
             const matchScore = Math.floor(Math.random() * 7) + 93; // 93%-99%
             document.getElementById('matchScoreBadge').innerText = `${matchScore}% Affinity Match`;
+
+            // Total Rarity Header Badge
+            const totalRarityBadge = document.getElementById('totalRarityBadge');
+            totalRarityBadge.className = `px-3.5 py-1.5 rounded-full border text-xs sm:text-sm font-orbitron font-bold flex items-center gap-1.5 shadow-md ${rarityData.config.color}`;
+            totalRarityBadge.innerHTML = `<i class="fa-solid ${rarityData.config.icon}"></i> Total Kelangkaan: ${rarityData.totalPct}% (${rarityData.tier})`;
+
+            // Total Rarity Box Details
+            document.getElementById('totalRarityValText').innerText = `${rarityData.totalPct}% Index`;
+            document.getElementById('totalRarityBar').style.width = `${rarityData.totalPct}%`;
+            document.getElementById('totalRarityTierName').innerText = `${rarityData.config.badgeText}`;
 
             // Top Result Render
             document.getElementById('resultTitle').innerText = top.title;
@@ -1640,6 +1711,9 @@
             const desc = document.getElementById('resultDescription').innerText;
             const category = document.getElementById('resultCategoryTag').innerText;
 
+            const totalRarityPct = lastResultData ? lastResultData.rarityData.totalPct : 85;
+            const totalRarityTier = lastResultData ? lastResultData.rarityData.tier : 'Super Langka';
+
             const exportCanvas = document.createElement('canvas');
             exportCanvas.width = 1200;
             exportCanvas.height = 700;
@@ -1687,6 +1761,25 @@
             c.font = 'bold 26px "Orbitron", sans-serif';
             c.fillText(userName.toUpperCase(), 70, 200);
 
+            // Total Rarity Score Box on Top Right of Certificate
+            c.fillStyle = 'rgba(236, 72, 153, 0.15)';
+            c.fillRect(720, 75, 410, 125);
+            c.strokeStyle = '#ec4899';
+            c.lineWidth = 1.5;
+            c.strokeRect(720, 75, 410, 125);
+
+            c.fillStyle = '#f59e0b';
+            c.font = 'bold 13px "Orbitron", sans-serif';
+            c.fillText('NILAI TOTAL KELANGKAAN SPECTRUM', 740, 105);
+
+            c.fillStyle = '#ffffff';
+            c.font = 'bold 28px "Orbitron", sans-serif';
+            c.fillText(`${totalRarityPct}% INDEX`, 740, 145);
+
+            c.fillStyle = '#ec4899';
+            c.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
+            c.fillText(`Tingkat: ${totalRarityTier.toUpperCase()}`, 740, 175);
+
             // Divider
             c.strokeStyle = 'rgba(255, 255, 255, 0.15)';
             c.beginPath();
@@ -1726,7 +1819,7 @@
             }
             wrapText(c, desc, 70, 350, 1060, 26);
 
-            // Badge/Category
+            // Badges at Bottom of Content
             c.fillStyle = 'rgba(139, 92, 246, 0.2)';
             c.fillRect(70, 480, 220, 40);
             c.strokeStyle = '#a855f7';
@@ -1736,6 +1829,17 @@
             c.fillStyle = '#a855f7';
             c.font = 'bold 14px "Orbitron", sans-serif';
             c.fillText(category.toUpperCase(), 85, 505);
+
+            // Rarity Tag Badge on Canvas
+            c.fillStyle = 'rgba(6, 182, 212, 0.2)';
+            c.fillRect(310, 480, 360, 40);
+            c.strokeStyle = '#06b6d4';
+            c.lineWidth = 1;
+            c.strokeRect(310, 480, 360, 40);
+
+            c.fillStyle = '#06b6d4';
+            c.font = 'bold 13px "Orbitron", sans-serif';
+            c.fillText(`KELANGKAAN TOTAL: ${totalRarityPct}% (${totalRarityTier.toUpperCase()})`, 325, 505);
 
             // 5. Certificate Footer & Watermark
             c.strokeStyle = 'rgba(255, 255, 255, 0.1)';
