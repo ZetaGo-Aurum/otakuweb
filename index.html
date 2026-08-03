@@ -400,7 +400,7 @@
 
                 <!-- Branding Footer on Card -->
                 <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-gray-500">
-                    <span>Otaku Spectrum Test Pro • Designed for Subculture Research</span>
+                    <span>Otaku Spectrum Test Pro • Created By ZetaGo-Aurum - Aleocrophic Tech , LTD</span>
                     <span class="font-orbitron font-semibold text-pink-400">OTAKU-SPECTRUM-PRO.IO</span>
                 </div>
             </div>
@@ -422,7 +422,7 @@
     </main>
 
     <!-- RESEARCH & METHODOLOGY MODAL -->
-    <div id="researchModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div id="researchModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="glass-card max-w-4xl w-full max-h-[85vh] rounded-3xl border border-white/20 flex flex-col overflow-hidden shadow-2xl">
             <!-- Modal Header -->
             <div class="p-5 border-b border-white/10 flex items-center justify-between bg-black/30">
@@ -506,7 +506,7 @@
     </div>
 
     <!-- ENCYCLOPEDIA MODAL (Modal 47 Archetypes) -->
-    <div id="encyclopediaModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4">
+    <div id="encyclopediaModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
         <div class="glass-card max-w-4xl w-full max-h-[90vh] sm:max-h-[85vh] rounded-3xl border border-white/20 flex flex-col overflow-hidden shadow-2xl">
             <!-- Modal Header -->
             <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-black/30">
@@ -559,14 +559,86 @@
     <!-- FOOTER -->
     <footer class="relative z-10 border-t border-white/5 py-6 text-center text-xs text-gray-500">
         <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p>© 2026 Otaku Spectrum Lab. Designed for Otaku Subculture Research.</p>
+            <p>© 2026 Otaku Spectrum Lab • Created By ZetaGo-Aurum - Aleocrophic Tech , LTD. All Rights Reserved.</p>
             <p class="text-gray-400">Created with <i class="fa-solid fa-heart text-pink-500"></i> & Modern Code</p>
         </div>
     </footer>
 
     <!-- JAVASCRIPT CODE -->
     <script>
-        // Rarity Styling & Icon Map
+        /* ==========================================================================
+           AUDIO ENGINE & GLOBAL APP STATE
+           ========================================================================== */
+        let userName = 'John Doe';
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let isAudioMuted = false;
+        let selectedRarityFilter = 'All';
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(freq = 440, type = 'sine', duration = 0.08) {
+            if (isAudioMuted || !audioCtx) return;
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function toggleAudio() {
+            isAudioMuted = !isAudioMuted;
+            const btn = document.getElementById('soundToggleBtn');
+            btn.innerHTML = isAudioMuted ? 
+                '<i class="fa-solid fa-volume-xmark text-gray-500 text-xs sm:text-sm"></i>' : 
+                '<i class="fa-solid fa-volume-high text-pink-400 text-xs sm:text-sm"></i>';
+            showToast(isAudioMuted ? 'Efek suara dimatikan' : 'Efek suara diaktifkan');
+        }
+
+        /* ==========================================================================
+           MODAL CONTROLLERS
+           ========================================================================== */
+        function openResearchModal() {
+            playSound(450, 'sine');
+            document.getElementById('researchModal').classList.remove('hidden');
+        }
+
+        function closeResearchModal() {
+            playSound(350, 'sine');
+            document.getElementById('researchModal').classList.add('hidden');
+        }
+
+        function openEncyclopediaModal() {
+            playSound(450, 'sine');
+            document.getElementById('encyclopediaModal').classList.remove('hidden');
+            filterEncyclopedia();
+        }
+
+        function closeEncyclopediaModal() {
+            playSound(350, 'sine');
+            document.getElementById('encyclopediaModal').classList.add('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        /* ==========================================================================
+           RARITY CONFIGURATION & 47 ARCHETYPES DATA
+           ========================================================================== */
         const RARITY_CONFIG = {
             'Umum': { color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', icon: 'fa-certificate', badgeText: '☘️ Umum', canvasColor: '#10b981' },
             'Cukup Langka': { color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40', icon: 'fa-gem', badgeText: '💎 Cukup Langka', canvasColor: '#06b6d4' },
@@ -1142,69 +1214,252 @@
             }
         ];
 
-        let selectedRarityFilter = 'All';
+        /* ==========================================================================
+           52 RESEARCH QUESTION BANK
+           ========================================================================== */
+        const QUESTIONS = [
+            { id: 1, cat: "Personality Trope", text: "Saya lebih menyukai karakter yang terlihat dingin/datar di luar, tetapi memiliki perhatian tersembunyi yang sangat hangat (Kuudere).", weight: { kuudere: 3, gapmoe: 1 } },
+            { id: 2, cat: "Dark Romance", text: "Karakter yang memiliki rasa cinta sangat obsesif, cemburu ekstrem, atau bahkan agak berbahaya (Yandere) justru terasa sangat menarik.", weight: { yandere: 3, darkfantasy: 1 } },
+            { id: 3, cat: "Personality Trope", text: "Karakter yang pura-pura galak dan gengsi mengakui perasaannya (Tsundere) adalah puncak hiburan anime.", weight: { tsundere: 3, gapmoe: 1 } },
+            { id: 4, cat: "Fantasy & Adventure", text: "Saya sangat menikmati cerita berpindah ke dunia lain (Isekai) dan mendapatkan kemampuan ajaib overpower.", weight: { isekai: 3, chuunibyou: 1 } },
+            { id: 5, cat: "Aesthetic & Service", text: "Detail seragam maid atau pakaian pelayanan selalu meningkatkan nilai estetika karakter secara signifikan.", weight: { maid: 3, cosplay: 1 } },
+            { id: 6, cat: "Comfy & Relaxing", text: "Cerita santai tanpa konflik berat (Slice of Life) jauh lebih menyembuhkan daripada anime pertarungan yang bikin stres.", weight: { sliceoflife: 3, pureheart: 1 } },
+            { id: 7, cat: "Romance Spectrum", text: "Saya menganggap ikatan cinta antar sesama karakter perempuan (Yuri) terasa lebih murni, estetik, dan indah.", weight: { yuri: 3, pureheart: 1 } },
+            { id: 8, cat: "Aesthetic Feature", text: "Sentuhan fisik seperti telinga kucing, serigala, atau ekor (Kemonomimi) membuat karakter berkali-kali lipat lebih menggemaskan.", weight: { neko: 3, petite: 1 } },
+            { id: 9, cat: "Heavy Storytelling", text: "Suasana cerita yang gelap, teka-teki psikologis, tragedi, dan gore jauh lebih memikat daripada cerita yang terlalu ceria.", weight: { darkfantasy: 3, yandere: 1 } },
+            { id: 10, cat: "Character Aesthetics", text: "Karakter dengan postur tubuh mungil dan imut (Cute/Petite) memicu naluri pelindung yang sangat kuat dalam diri saya.", weight: { petite: 3, neko: 1 } },
+            { id: 11, cat: "Fetish & Dynamics", text: "Saya menyukai dinamika di mana saya atau karakter utama diposisikan untuk dipatuhi, diatur, atau diejek manis oleh karakter wanita dominan.", weight: { masochist: 3, dominant: -1 } },
+            { id: 12, cat: "Tech & Sci-Fi", text: "Desain robot raksasa (Mecha), senjata futuristik, dan taktik militer sci-fi selalu berhasil membuat saya kagum.", weight: { mecha: 3, cyberpunk: 1 } },
+            { id: 13, cat: "Gap & Energetic", text: "Karakter cewek tomboy yang aktif, berolahraga, dan santai seperti sahabat cowok adalah tipe idaman saya.", weight: { tomboy: 3, school: 1 } },
+            { id: 14, cat: "Age & Dynamic", text: "Karakter wanita dewasa yang keibu-ibuan, penyayang, dan suka mengusap kepala (Onee-san) memberikan kenyamanan tiada tanding.", weight: { oneesan: 3, sensei: 1 } },
+            { id: 15, cat: "Culture & Ecchi", text: "Saya menikmati konten berunsur ecchi, adegan fanservice, dan materi tanpa sensor tanpa perlu merasa malu.", weight: { gooner: 3, pureheart: -2 } },
+            { id: 16, cat: "Wholesome Devotion", text: "Saya tipe otaku yang sangat setia: hanya memiliki 1 Waifu utama dan tidak tertarik mengganti-gantinya.", weight: { monogamist: 3, harem: -2 } },
+            { id: 17, cat: "Romance Multiplicity", text: "Kenapa harus memilih satu jika bisa menyukai semuanya? Pilihan harem yang ramai dan beragam adalah yang terbaik.", weight: { harem: 3, monogamist: -2 } },
+            { id: 18, cat: "Goth & Mystery", text: "Gaya busana Gothic Lolita, gaun renda hitam, dan keanggunan misterius terasa sangat memikat.", weight: { gothic: 3, gothiclolita: 2 } },
+            { id: 19, cat: "Audio & Music", text: "Suara pengisi suara (Seiyuu), lagu tema (OST), dan pertunjukan konser musik memiliki peran sangat besar dalam menyukai anime/game.", weight: { seiyuu: 3, idoldream: 2 } },
+            { id: 20, cat: "Mentor Dynamic", text: "Karakter guru, dosen, atau pembimbing senior (Sensei) memiliki kharisma dewasa yang sangat menarik.", weight: { sensei: 3, oneesan: 1 } },
+            { id: 21, cat: "Romance Spectrum", text: "Dinamika romansa antar karakter pria (BL / Yaoi) terasa sangat menarik dan penuh emosi mendalam.", weight: { bl: 3 } },
+            { id: 22, cat: "Fantasy Anatomy", text: "Karakter ras fantasi atau setengah monster (Gadis Naga, Elf, Harpy) terasa lebih eksotis dan estetik dibanding manusia biasa.", weight: { monstergirl: 3, isekai: 1 } },
+            { id: 23, cat: "Roleplay & Imagination", text: "Saya suka membayangkan memiliki kekuatan rahasia terselubung di mata atau tangan kanan seperti konsep Chuunibyou.", weight: { chuunibyou: 3, isekai: 1 } },
+            { id: 24, cat: "Antagonist Charm", text: "Karakter antagonis wanita (Villainess) yang licik, berkuasa, dan elegan jauh lebih menarik daripada pahlawan utama yang polos.", weight: { villainess: 3, dominant: 1 } },
+            { id: 25, cat: "Character Dynamic", text: "Perubahan sifat mendadak yang mengejutkan (Gap Moe) selalu berhasil membuat hati saya berdebar.", weight: { gapmoe: 3, tsundere: 1, kuudere: 1 } },
+            { id: 26, cat: "Wholesome Pure", text: "Konten anime/game idealnya bersih dari ecchi berlebihan; saya hanya berfokus pada kehangatan cerita dan emosi murni.", weight: { pureheart: 3, gooner: -3 } },
+            { id: 27, cat: "Sci-Fi Aesthetics", text: "Visual kota bermandikan lampu neon, peretasan data, dan dunia cyberpunk selalu memicu adrenalin saya.", weight: { cyberpunk: 3, mecha: 1 } },
+            { id: 28, cat: "School Youth", text: "Atmosfer sekolah Jepang, festival budaya, dan momen masa muda selalu membuat saya rindu walau belum pernah mengalaminya.", weight: { school: 3, sliceoflife: 1 } },
+            { id: 29, cat: "Visual & Art", text: "Saya lebih mengagumi keindahan seni visual, detail kostum cosplay, dan kualitas animasi daripada alur ceritanya.", weight: { cosplay: 3, seiyuu: 1 } },
+            { id: 30, cat: "Intellectual Story", text: "Saya sangat senang menganalisis lore tersembunyi, sistem sihir yang rumit, dan sejarah dalam sebuah dunia fiksi.", weight: { lore: 3, darkfantasy: 1 } },
+            { id: 31, cat: "Dynamic Romance", text: "Persaingan ketat antar musuh yang perlahan-lahan berubah menjadi benih cinta sejati adalah tropa terbaik.", weight: { rivalry: 3, tsundere: 1 } },
+            { id: 32, cat: "Fetish & Dynamics", text: "Saya menikmati posisi dominan di mana saya yang membimbing atau mengontrol karakter yang patuh/pemalu.", weight: { dominant: 3, masochist: -2 } },
+            { id: 33, cat: "Shonen Spirit", text: "Momen pahlawan bertarung pantang menyerah demi persahabatan selalu membuat mata saya berkaca-kaca.", weight: { heroic: 3, isekai: 1 } },
+            { id: 34, cat: "Modern Digital", text: "Saya sangat suka menonton VTuber streaming jam 2 pagi, memotong klip lucu, atau berinteraksi di live chat.", weight: { vtuber: 3, seiyuu: 1 } },
+            { id: 35, cat: "Aesthetic Feature", text: "Aksesori kacamata (Megane) seketika menaikkan tingkat daya tarik visual karakter bagi saya.", weight: { megane: 3 } },
+            { id: 36, cat: "Modern Fashion", text: "Karakter cewek berpenampilan Gyaru (rambut pirang, outfit modis, percaya diri) terasa sangat menarik dan hangat.", weight: { gyaru: 3, tomboy: 1 } },
+            { id: 37, cat: "Vintage Aesthetic", text: "Animasi era 80-90an, musik City Pop, dan estetika retro otaku memiliki tempat istimewa di hati saya.", weight: { retro: 3, lore: 1 } },
+            { id: 38, cat: "Romance Multiplicity", text: "Saya sangat menyukai kisah Otome atau Reverse Harem di mana dikelilingi pria-pria tampan karismatik.", weight: { otome: 3, bl: 1 } },
+            { id: 39, cat: "Gaming Subculture", text: "Sensasi menarik gacha, kilatan warna pelangi, dan mengoleksi kartu karakter memberikan kepuasan luar biasa.", weight: { gacha: 3 } },
+            { id: 40, cat: "Comfy & Lifestyle", text: "Seni menggambarkan hidangan makanan yang lezat dan berkilau dalam anime selalu membuat saya lapar.", weight: { foodie: 3, sliceoflife: 1 } },
+            { id: 41, cat: "Goth & Collection", text: "Saya mengagumi koleksi boneka porselen, figure bertingkat tinggi, serta kepatuhan estetik yang sempurna.", weight: { gothiclolita: 3, gothic: 1 } },
+            { id: 42, cat: "Audio & Stage", text: "Menonton idol berjuang dari panggung kecil menuju konser dome megah selalu membuat dada saya bergetar haru.", weight: { idoldream: 3, seiyuu: 1 } },
+            { id: 43, cat: "Personality Trope", text: "Karakter yang selalu ceria, memberikan cinta tulus tanpa rasa gengsi (Deredere) adalah energi positif terbaik.", weight: { deredere: 3, pureheart: 1 } },
+            { id: 44, cat: "Aesthetic Feature", text: "Pakaian ketat sci-fi seperti Plugsuit pilot mecha atau Bodysuit sangat memikat mata seni saya.", weight: { bodysuit: 3, mecha: 1 } },
+            { id: 45, cat: "Intellectual Story", text: "Permainan pikiran (mind games), survival death game, dan adu kecerdasan psikologis adalah genre favorit saya.", weight: { thriller: 3, lore: 1 } },
+            { id: 46, cat: "Personality Trope", text: "Karakter laki-laki yang pemalu dan tersipu manis saat dipuji (Tsundere boy) sangat menggemaskan.", weight: { tsundereboy: 3, dandere: 1 } },
+            { id: 47, cat: "Wholesome Devotion", text: "Momen romantis sederhana seperti pegangan tangan atau usapan kepala terasa jauh lebih menyentuh daripada adegan berlebihan.", weight: { pureheart: 2, monogamist: 2 } },
+            { id: 48, cat: "Culture & Ecchi", text: "Saya sering mencari informasi versi tanpa sensor atau artbook resmi dari karya otaku favorit saya.", weight: { gooner: 2, cosplay: 1 } },
+            { id: 49, cat: "Fantasy & Adventure", text: "Eksplorasi dunia fantasi yang luas bersama kawan-kawan adalah hal utama yang saya cari saat menikmati game/anime.", weight: { isekai: 2, heroic: 1 } },
+            { id: 50, cat: "General Culture", text: "Bagi saya, menjadi Otaku adalah tentang mengapresiasi passion, estetika visual, dan kebebasan mengekspresikan hobi tanpa takut di-judge.", weight: { pureheart: 1, monogamist: 1, heroic: 1 } },
+            { id: 51, cat: "Personality Trope", text: "Karakter pendiam yang bicaranya pelan dan pemalu namun sangat manis saat akrab selalu menenangkan jiwa.", weight: { dandere: 3, kuudere: 1 } },
+            { id: 52, cat: "Culture & Ecchi", text: "Apresiasi pada keindahan estetika tubuh fiksi adalah bagian dari karya seni yang patut dinikmati.", weight: { gooner: 2, cosplay: 1 } }
+        ];
 
-        function renderResultScreen(top, runnerUps, dims) {
+        /* ==========================================================================
+           PARTICLE BACKGROUND CANVAS ENGINE
+           ========================================================================== */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas ? canvas.getContext('2d') : null;
+        let particles = [];
+
+        function resizeCanvas() {
+            if (!canvas) return;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * (canvas ? canvas.width : 800);
+                this.y = Math.random() * (canvas ? canvas.height : 600);
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = ['#ec4899', '#8b5cf6', '#06b6d4'][Math.floor(Math.random() * 3)];
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                if (!canvas) return;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                if (!ctx) return;
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        if (canvas) {
+            for (let i = 0; i < 45; i++) particles.push(new Particle());
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+
+        /* ==========================================================================
+           QUIZ ENGINE & NAVIGATION CONTROLLER
+           ========================================================================== */
+        function startQuiz() {
+            playSound(600, 'sine');
+            const input = document.getElementById('userNameInput');
+            userName = (input && input.value.trim() !== '') ? input.value.trim() : 'John Doe';
+
+            document.getElementById('screenLanding').classList.add('hidden');
+            document.getElementById('screenQuiz').classList.remove('hidden');
+            document.getElementById('screenResult').classList.add('hidden');
+            
+            currentQuestionIndex = 0;
+            userAnswers = new Array(QUESTIONS.length).fill(null);
+            renderQuestion();
+        }
+
+        function resetToHome() {
+            playSound(400, 'sine');
+            document.getElementById('screenLanding').classList.remove('hidden');
             document.getElementById('screenQuiz').classList.add('hidden');
-            document.getElementById('screenResult').classList.remove('hidden');
-
-            document.getElementById('displayUserName').innerText = userName;
-            document.getElementById('resultTitle').innerText = top.title;
-            document.getElementById('resultTagline').innerText = `"${top.tagline}"`;
-            document.getElementById('resultDescription').innerText = top.desc;
-            document.getElementById('resultCategoryTag').innerText = top.category;
-
-            // Rarity Tag Styling
-            const rConfig = RARITY_CONFIG[top.rarity] || RARITY_CONFIG['Umum'];
-            const rarityTag = document.getElementById('resultRarityTag');
-            rarityTag.className = `px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-md flex items-center gap-1.5 ${rConfig.color}`;
-            rarityTag.innerHTML = `<i class="fa-solid ${rConfig.icon}"></i> ${rConfig.badgeText}`;
-
-            document.getElementById('resultIconBox').innerHTML = `<i class="fa-solid ${top.icon}"></i>`;
-
-            const traitsContainer = document.getElementById('resultTraitsList');
-            traitsContainer.innerHTML = top.traits.map(t => `<li>${t}</li>`).join('');
-
-            const tropesContainer = document.getElementById('resultTropesList');
-            tropesContainer.innerHTML = top.tropes.map(tr => `<li>${tr}</li>`).join('');
-
-            document.getElementById('dimWholesomeVal').innerText = `${dims.wholesome}%`;
-            document.getElementById('dimWholesomeBar').style.width = `${dims.wholesome}%`;
-
-            document.getElementById('dimStoryVal').innerText = `${dims.story}%`;
-            document.getElementById('dimStoryBar').style.width = `${dims.story}%`;
-
-            document.getElementById('dimTropeVal').innerText = `${dims.trope}%`;
-            document.getElementById('dimTropeBar').style.width = `${dims.trope}%`;
-
-            document.getElementById('dimCultureVal').innerText = `${dims.culture}%`;
-            document.getElementById('dimCultureBar').style.width = `${dims.culture}%`;
-
-            document.getElementById('dimAestheticVal').innerText = `${dims.aesthetic}%`;
-            document.getElementById('dimAestheticBar').style.width = `${dims.aesthetic}%`;
-
-            const grid = document.getElementById('secondaryArchetypesGrid');
-            grid.innerHTML = runnerUps.map(r => {
-                const cfg = RARITY_CONFIG[r.rarity] || RARITY_CONFIG['Umum'];
-                return `
-                    <div class="glass-card p-3 rounded-2xl border border-white/5 flex flex-col items-center text-center space-y-1 hover:border-purple-500/30 transition">
-                        <div class="w-8 h-8 rounded-lg bg-white/10 text-pink-400 flex items-center justify-center text-sm">
-                            <i class="fa-solid ${r.icon}"></i>
-                        </div>
-                        <div class="text-xs font-bold text-white font-orbitron truncate w-full">${r.title}</div>
-                        <span class="text-[9px] px-2 py-0.5 rounded-full border ${cfg.color} font-semibold">${cfg.badgeText}</span>
-                    </div>
-                `;
-            }).join('');
-
+            document.getElementById('screenResult').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function renderQuestion() {
+            const q = QUESTIONS[currentQuestionIndex];
+            document.getElementById('questionCategory').innerHTML = `<i class="fa-solid fa-compass"></i> Dimensi: ${q.cat}`;
+            document.getElementById('questionText').innerText = q.text;
+            
+            const total = QUESTIONS.length;
+            const currentNum = currentQuestionIndex + 1;
+            const pct = (currentNum / total * 100).toFixed(1);
+
+            document.getElementById('questionCountText').innerHTML = `<i class="fa-solid fa-clipboard-question text-pink-400"></i> Pertanyaan ${currentNum} dari ${total}`;
+            document.getElementById('questionPercentText').innerText = `${pct}%`;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+
+            // Reset option styling highlight
+            const selectedVal = userAnswers[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, idx) => {
+                const val = idx + 1;
+                if (selectedVal === val) {
+                    btn.classList.add('ring-2', 'ring-pink-500', 'bg-pink-500/30');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-pink-500', 'bg-pink-500/30');
+                }
+            });
+
+            // Update Back Button state
+            const prevBtn = document.getElementById('prevBtn');
+            if (prevBtn) prevBtn.disabled = currentQuestionIndex === 0;
+        }
+
+        function selectOption(val) {
+            playSound(500 + val * 60, 'sine');
+            userAnswers[currentQuestionIndex] = val;
+
+            if (currentQuestionIndex < QUESTIONS.length - 1) {
+                currentQuestionIndex++;
+                setTimeout(() => { renderQuestion(); }, 120);
+            } else {
+                calculateResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                playSound(350, 'sine');
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        /* ==========================================================================
+           SCORING & SPECTRUM VECTOR CALCULATOR
+           ========================================================================== */
+        function calculateResults() {
+            playSound(800, 'triangle', 0.2);
+
+            let archetypeScores = {};
+            ARCHETYPES.forEach(a => archetypeScores[a.id] = 0);
+
+            let dimensions = { wholesome: 0, story: 0, trope: 0, culture: 0, aesthetic: 0 };
+
+            userAnswers.forEach((ans, idx) => {
+                if (!ans) ans = 3;
+                const multiplier = ans - 3; // (-2 to +2)
+                const q = QUESTIONS[idx];
+
+                for (let archKey in q.weight) {
+                    if (archetypeScores.hasOwnProperty(archKey)) {
+                        archetypeScores[archKey] += q.weight[archKey] * multiplier;
+                    }
+                }
+
+                if (q.cat.includes('Wholesome') || q.cat.includes('Comfy')) dimensions.wholesome += ans;
+                if (q.cat.includes('Story') || q.cat.includes('Fantasy') || q.cat.includes('Tech') || q.cat.includes('Intellectual')) dimensions.story += ans;
+                if (q.cat.includes('Trope') || q.cat.includes('Dynamic') || q.cat.includes('Personality') || q.cat.includes('Mentor')) dimensions.trope += ans;
+                if (q.cat.includes('Culture') || q.cat.includes('Fetish') || q.cat.includes('Dark Romance')) dimensions.culture += ans;
+                if (q.cat.includes('Aesthetic') || q.cat.includes('Audio') || q.cat.includes('Visual') || q.cat.includes('Fashion') || q.cat.includes('Vintage')) dimensions.aesthetic += ans;
+            });
+
+            let sortedArchetypes = ARCHETYPES.map(a => {
+                return { ...a, score: archetypeScores[a.id] || 0 };
+            }).sort((a, b) => b.score - a.score);
+
+            const topArchetype = sortedArchetypes[0];
+            const runnerUps = sortedArchetypes.slice(1, 5);
+
+            const calcDimPct = (val) => Math.min(100, Math.max(25, Math.round((val / 45) * 100)));
+            const dimPct = {
+                wholesome: calcDimPct(dimensions.wholesome),
+                story: calcDimPct(dimensions.story),
+                trope: calcDimPct(dimensions.trope),
+                culture: calcDimPct(dimensions.culture),
+                aesthetic: calcDimPct(dimensions.aesthetic)
+            };
+
+            renderResultScreen(topArchetype, runnerUps, dimPct);
+
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+            }
+        }
+
+        /* ==========================================================================
+           ENCYCLOPEDIA FILTERING & RENDERER
+           ========================================================================== */
         function setRarityFilter(rarity) {
             playSound(350, 'sine');
             selectedRarityFilter = rarity;
             
-            // Highlight active filter chip
             const chips = document.querySelectorAll('.rarity-chip-btn');
             chips.forEach(chip => {
                 if ((rarity === 'All' && chip.innerText.includes('Semua')) || chip.innerText.includes(rarity)) {
@@ -1224,7 +1479,7 @@
                 container.innerHTML = `
                     <div class="text-center py-10 text-gray-400 space-y-2">
                         <i class="fa-solid fa-ghost text-3xl text-pink-400/50"></i>
-                        <p class="text-xs">Tidak ada label otaku yang sesuai dengan filter ini.</p>
+                        <p class="text-xs">Tidak ada label otaku yang sesuai dengan pencarian ini.</p>
                     </div>
                 `;
                 return;
@@ -1254,7 +1509,8 @@
         }
 
         function filterEncyclopedia() {
-            const query = document.getElementById('modalSearchInput').value.toLowerCase();
+            const searchInput = document.getElementById('modalSearchInput');
+            const query = searchInput ? searchInput.value.toLowerCase() : '';
             const filtered = ARCHETYPES.filter(a => {
                 const matchesQuery = a.title.toLowerCase().includes(query) || 
                                      a.category.toLowerCase().includes(query) || 
@@ -1266,157 +1522,31 @@
             renderEncyclopediaList(filtered);
         }
 
-        function downloadCardAsImage() {
+        /* ==========================================================================
+           CLIPBOARD & CERTIFICATE PNG EXPORTER
+           ========================================================================== */
+        function copyResultText() {
             const title = document.getElementById('resultTitle').innerText;
             const tagline = document.getElementById('resultTagline').innerText;
-            const desc = document.getElementById('resultDescription').innerText;
-
-            // Find current archetype rarity
-            const topArch = ARCHETYPES.find(a => a.title === title) || ARCHETYPES[0];
-            const rarityInfo = RARITY_CONFIG[topArch.rarity] || RARITY_CONFIG['Umum'];
-
-            const wVal = document.getElementById('dimWholesomeVal').innerText;
-            const sVal = document.getElementById('dimStoryVal').innerText;
-            const tVal = document.getElementById('dimTropeVal').innerText;
-            const cVal = document.getElementById('dimCultureVal').innerText;
-            const aVal = document.getElementById('dimAestheticVal').innerText;
-
-            const exportCanvas = document.createElement('canvas');
-            exportCanvas.width = 960;
-            exportCanvas.height = 620;
-            const c = exportCanvas.getContext('2d');
-
-            // Canvas Background
-            const grad = c.createLinearGradient(0, 0, 960, 620);
-            grad.addColorStop(0, '#060810');
-            grad.addColorStop(0.5, '#121629');
-            grad.addColorStop(1, '#1a103c');
-            c.fillStyle = grad;
-            c.fillRect(0, 0, 960, 620);
-
-            // Double Frame
-            c.strokeStyle = '#ec4899';
-            c.lineWidth = 3;
-            c.strokeRect(20, 20, 920, 580);
-
-            c.strokeStyle = 'rgba(139, 92, 246, 0.4)';
-            c.lineWidth = 1;
-            c.strokeRect(28, 28, 904, 564);
-
-            // Frame Corner Accents
-            c.fillStyle = '#ec4899';
-            c.fillRect(20, 20, 15, 15);
-            c.fillRect(925, 20, 15, 15);
-            c.fillRect(20, 585, 15, 15);
-            c.fillRect(925, 585, 15, 15);
-
-            // Header Text & Seal
-            c.fillStyle = '#06b6d4';
-            c.font = 'bold 11px "Orbitron", sans-serif';
-            c.fillText('OFFICIAL OTAKU SPECTRUM PRO CERTIFICATE', 50, 55);
-
-            // Match Badge
-            c.fillStyle = 'rgba(236, 72, 153, 0.15)';
-            c.fillRect(710, 40, 200, 36);
-            c.strokeStyle = 'rgba(236, 72, 153, 0.5)';
-            c.lineWidth = 1;
-            c.strokeRect(710, 40, 200, 36);
-            c.fillStyle = '#f472b6';
-            c.font = 'bold 12px "Orbitron", sans-serif';
-            c.fillText('AFFINITY MATCH: 98%', 725, 63);
-
-            // Recipient Section
-            c.fillStyle = '#9ca3af';
-            c.font = '12px "Plus Jakarta Sans", sans-serif';
-            c.fillText('SERTIFIKAT HASIL ANALISIS DIBERIKAN KEPADA:', 50, 90);
-
-            c.fillStyle = '#38bdf8';
-            c.font = 'bold 28px "Orbitron", sans-serif';
-            c.fillText(userName.toUpperCase(), 50, 125);
-
-            // Horizontal Divider
-            c.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-            c.beginPath();
-            c.moveTo(50, 142);
-            c.lineTo(910, 142);
-            c.stroke();
-
-            // Archetype Main Title & Rarity Stamp
-            c.fillStyle = '#ec4899';
-            c.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
-            c.fillText('PERSONA & ARCHETYPE UTAMA:', 50, 172);
-
-            c.fillStyle = '#ffffff';
-            c.font = 'bold 28px "Orbitron", sans-serif';
-            c.fillText(title, 50, 210);
-
-            // Rarity Badge Drawing on Canvas
-            c.fillStyle = rarityInfo.canvasColor;
-            c.fillRect(50, 222, 150, 24);
-            c.fillStyle = '#000000';
-            c.font = 'bold 11px "Orbitron", sans-serif';
-            c.fillText(`KELANGKAAN: ${topArch.rarity.toUpperCase()}`, 58, 238);
-
-            c.fillStyle = '#c084fc';
-            c.font = 'italic 15px "Plus Jakarta Sans", sans-serif';
-            c.fillText(tagline, 215, 238);
-
-            // Description Wrap
-            c.fillStyle = '#d1d5db';
-            c.font = '13px "Plus Jakarta Sans", sans-serif';
+            const textToCopy = `✨ CERTIFICATE RESULT: OTAKU SPECTRUM PRO ✨\n\nDiberikan Kepada: ${userName}\nPersona Dominan: ${title}\nTagline: ${tagline}\n\nCoba tes selera & persona otaku kamu di Otaku Spectrum Pro 🚀`;
             
-            function wrapText(context, text, x, y, maxWidth, lineHeight) {
-                let words = text.split(' ');
-                let line = '';
-                for (let n = 0; n < words.length; n++) {
-                    let testLine = line + words[n] + ' ';
-                    let metrics = context.measureText(testLine);
-                    if (metrics.width > maxWidth && n > 0) {
-                        context.fillText(line, x, y);
-                        line = words[n] + ' ';
-                        y += lineHeight;
-                    } else {
-                        line = testLine;
-                    }
-                }
-                context.fillText(line, x, y);
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textToCopy);
+            } else {
+                const el = document.createElement('textarea');
+                el.value = textToCopy;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
             }
-            wrapText(c, desc, 50, 275, 810, 20);
-
-            // Dimensions Summary Box
-            c.fillStyle = 'rgba(0, 0, 0, 0.4)';
-            c.fillRect(50, 395, 860, 125);
-            c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-            c.strokeRect(50, 395, 860, 125);
-
-            c.fillStyle = '#f472b6';
-            c.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
-            c.fillText('SPEKTRUM 5 DIMENSI SUBKULTUR:', 68, 422);
-
-            c.fillStyle = '#e5e7eb';
-            c.font = '12px "Plus Jakarta Sans", sans-serif';
-            c.fillText(`• Wholesome & Romance: ${wVal}`, 68, 452);
-            c.fillText(`• Worldbuilding & Lore: ${sVal}`, 68, 480);
-            c.fillText(`• Character Archetypes: ${tVal}`, 360, 452);
-            c.fillText(`• Culture & Ecchi: ${cVal}`, 360, 480);
-            c.fillText(`• Audio & Visual: ${aVal}`, 650, 452);
-
-            // Footer Stamp & Date
-            const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
-            c.fillStyle = '#6b7280';
-            c.font = '11px "Orbitron", sans-serif';
-            c.fillText(`Diterbitkan oleh Otaku Spectrum Lab Pro • ${today}`, 50, 565);
-            
-            const verifyId = 'OTP-' + Math.floor(100000 + Math.random() * 900000);
-            c.fillText(`VERIFIED ID: ${verifyId}`, 720, 565);
-
-            const link = document.createElement('a');
-            link.download = `Sertifikat_Otaku_Spectrum_${userName.replace(/[^a-zA-Z0-9]/g, '_')}_${title.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
-            link.href = exportCanvas.toDataURL('image/png');
-            link.click();
-
-            showToast('Sertifikat PNG berpenama & kelangkaan berhasil diunduh!');
+            showToast('Ringkasan teks sertifikat berhasil disalin!');
         }
+
+        // Window onload initialization
+        window.onload = function() {
+            console.log("Otaku Spectrum Pro Initialized Successfully.");
+        };
     </script>
 </body>
 </html>
