@@ -575,22 +575,34 @@
         let isAudioMuted = false;
         let selectedRarityFilter = 'All';
 
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // Lazy AudioContext initialization to prevent browser autoplay policy warnings
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
 
         function playSound(freq = 440, type = 'sine', duration = 0.08) {
-            if (isAudioMuted || !audioCtx) return;
+            if (isAudioMuted) return;
             try {
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
                 osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
                 osc.connect(gain);
-                gain.connect(audioCtx.destination);
+                gain.connect(ctx.destination);
                 osc.start();
-                osc.stop(audioCtx.currentTime + duration);
+                osc.stop(ctx.currentTime + duration);
             } catch (e) {}
         }
 
@@ -1454,6 +1466,82 @@
         }
 
         /* ==========================================================================
+           RENDER RESULT SCREEN
+           ========================================================================== */
+        function renderResultScreen(top, runnerUps, dims) {
+            document.getElementById('screenLanding').classList.add('hidden');
+            document.getElementById('screenQuiz').classList.add('hidden');
+            document.getElementById('screenResult').classList.remove('hidden');
+
+            // User Name display
+            document.getElementById('displayUserName').innerText = userName;
+
+            // Match Score Badge
+            const matchScore = Math.floor(Math.random() * 7) + 93; // 93%-99%
+            document.getElementById('matchScoreBadge').innerText = `${matchScore}% Affinity Match`;
+
+            // Top Result Render
+            document.getElementById('resultTitle').innerText = top.title;
+            document.getElementById('resultTagline').innerText = `"${top.tagline}"`;
+            document.getElementById('resultDescription').innerText = top.desc;
+            document.getElementById('resultCategoryTag').innerText = top.category;
+
+            // Rarity Tag
+            const rCfg = RARITY_CONFIG[top.rarity] || RARITY_CONFIG['Umum'];
+            const rarityTag = document.getElementById('resultRarityTag');
+            rarityTag.className = `px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-md flex items-center gap-1 ${rCfg.color}`;
+            rarityTag.innerHTML = `<i class="fa-solid ${rCfg.icon}"></i> ${rCfg.badgeText}`;
+
+            // Icon Box
+            const iconBox = document.getElementById('resultIconBox');
+            iconBox.className = `w-28 h-28 rounded-2xl bg-gradient-to-tr ${top.color} flex items-center justify-center text-5xl text-white shadow-xl neon-glow mb-3`;
+            iconBox.innerHTML = `<i class="fa-solid ${top.icon}"></i>`;
+
+            // Traits
+            const traitsContainer = document.getElementById('resultTraitsList');
+            traitsContainer.innerHTML = top.traits.map(t => `<li>${t}</li>`).join('');
+
+            // Tropes
+            const tropesContainer = document.getElementById('resultTropesList');
+            tropesContainer.innerHTML = top.tropes.map(tr => `<li>${tr}</li>`).join('');
+
+            // Dimensions Bars
+            document.getElementById('dimWholesomeVal').innerText = `${dims.wholesome}%`;
+            document.getElementById('dimWholesomeBar').style.width = `${dims.wholesome}%`;
+
+            document.getElementById('dimStoryVal').innerText = `${dims.story}%`;
+            document.getElementById('dimStoryBar').style.width = `${dims.story}%`;
+
+            document.getElementById('dimTropeVal').innerText = `${dims.trope}%`;
+            document.getElementById('dimTropeBar').style.width = `${dims.trope}%`;
+
+            document.getElementById('dimCultureVal').innerText = `${dims.culture}%`;
+            document.getElementById('dimCultureBar').style.width = `${dims.culture}%`;
+
+            document.getElementById('dimAestheticVal').innerText = `${dims.aesthetic}%`;
+            document.getElementById('dimAestheticBar').style.width = `${dims.aesthetic}%`;
+
+            // Secondary Tropes (Runner Ups)
+            const grid = document.getElementById('secondaryArchetypesGrid');
+            grid.innerHTML = runnerUps.map(r => {
+                const cfg = RARITY_CONFIG[r.rarity] || RARITY_CONFIG['Umum'];
+                return `
+                    <div class="glass-card p-3 rounded-2xl border border-white/5 flex flex-col items-center text-center space-y-1 hover:border-pink-500/30 transition">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr ${r.color} text-white flex items-center justify-center text-sm shadow-md">
+                            <i class="fa-solid ${r.icon}"></i>
+                        </div>
+                        <div class="text-[11px] font-bold text-white font-orbitron truncate w-full">${r.title}</div>
+                        <div class="text-[9px] px-2 py-0.5 rounded-full border ${cfg.color} font-semibold flex items-center gap-1">
+                            ${cfg.badgeText}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ==========================================================================
            ENCYCLOPEDIA FILTERING & RENDERER
            ========================================================================== */
         function setRarityFilter(rarity) {
@@ -1541,6 +1629,142 @@
                 document.body.removeChild(el);
             }
             showToast('Ringkasan teks sertifikat berhasil disalin!');
+        }
+
+        function downloadCardAsImage() {
+            playSound(700, 'sine');
+            showToast('Generating Sertifikat PNG...');
+
+            const title = document.getElementById('resultTitle').innerText;
+            const tagline = document.getElementById('resultTagline').innerText;
+            const desc = document.getElementById('resultDescription').innerText;
+            const category = document.getElementById('resultCategoryTag').innerText;
+
+            const exportCanvas = document.createElement('canvas');
+            exportCanvas.width = 1200;
+            exportCanvas.height = 700;
+            const c = exportCanvas.getContext('2d');
+
+            // 1. Dark Cyber Background
+            const bgGrad = c.createLinearGradient(0, 0, 1200, 700);
+            bgGrad.addColorStop(0, '#080a12');
+            bgGrad.addColorStop(0.5, '#121629');
+            bgGrad.addColorStop(1, '#1a103c');
+            c.fillStyle = bgGrad;
+            c.fillRect(0, 0, 1200, 700);
+
+            // 2. Decorative Cyber Grids / Borders
+            c.strokeStyle = 'rgba(236, 72, 153, 0.4)';
+            c.lineWidth = 6;
+            c.strokeRect(30, 30, 1140, 640);
+
+            c.strokeStyle = 'rgba(139, 92, 246, 0.3)';
+            c.lineWidth = 2;
+            c.strokeRect(40, 40, 1120, 620);
+
+            // Corner Accents
+            c.fillStyle = '#ec4899';
+            c.fillRect(25, 25, 20, 20);
+            c.fillRect(1155, 25, 20, 20);
+            c.fillRect(25, 655, 20, 20);
+            c.fillRect(1155, 655, 20, 20);
+
+            // 3. Header Text
+            c.fillStyle = '#10b981';
+            c.font = 'bold 14px "Orbitron", sans-serif';
+            c.fillText('OFFICIAL OTAKU SPECTRUM CERTIFICATE 2026', 70, 80);
+
+            c.fillStyle = '#ec4899';
+            c.font = 'bold 28px "Orbitron", sans-serif';
+            c.fillText('OTAKU SPECTRUM PRO', 70, 120);
+
+            // Certified To
+            c.fillStyle = '#9ca3af';
+            c.font = '16px "Plus Jakarta Sans", sans-serif';
+            c.fillText('Diberikan Kepada Subkultur Enthusiast:', 70, 165);
+
+            c.fillStyle = '#06b6d4';
+            c.font = 'bold 26px "Orbitron", sans-serif';
+            c.fillText(userName.toUpperCase(), 70, 200);
+
+            // Divider
+            c.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            c.beginPath();
+            c.moveTo(70, 220);
+            c.lineTo(1130, 220);
+            c.stroke();
+
+            // 4. Primary Archetype Title
+            c.fillStyle = '#ffffff';
+            c.font = 'bold 36px "Orbitron", sans-serif';
+            c.fillText(title, 70, 275);
+
+            // Tagline
+            c.fillStyle = '#ec4899';
+            c.font = 'italic 20px "Plus Jakarta Sans", sans-serif';
+            c.fillText(tagline, 70, 310);
+
+            // Description Wrap
+            c.fillStyle = '#d1d5db';
+            c.font = '16px "Plus Jakarta Sans", sans-serif';
+            
+            function wrapText(context, text, x, y, maxWidth, lineHeight) {
+                let words = text.split(' ');
+                let line = '';
+                for (let n = 0; n < words.length; n++) {
+                    let testLine = line + words[n] + ' ';
+                    let metrics = context.measureText(testLine);
+                    if (metrics.width > maxWidth && n > 0) {
+                        context.fillText(line, x, y);
+                        line = words[n] + ' ';
+                        y += lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                context.fillText(line, x, y);
+            }
+            wrapText(c, desc, 70, 350, 1060, 26);
+
+            // Badge/Category
+            c.fillStyle = 'rgba(139, 92, 246, 0.2)';
+            c.fillRect(70, 480, 220, 40);
+            c.strokeStyle = '#a855f7';
+            c.lineWidth = 1;
+            c.strokeRect(70, 480, 220, 40);
+
+            c.fillStyle = '#a855f7';
+            c.font = 'bold 14px "Orbitron", sans-serif';
+            c.fillText(category.toUpperCase(), 85, 505);
+
+            // 5. Certificate Footer & Watermark
+            c.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            c.beginPath();
+            c.moveTo(70, 580);
+            c.lineTo(1130, 580);
+            c.stroke();
+
+            c.fillStyle = '#6b7280';
+            c.font = '13px "Plus Jakarta Sans", sans-serif';
+            c.fillText('VERIFIED BY OTAKU SPECTRUM LABS • TAKSONOMI DIPLOMA 2026', 70, 615);
+
+            c.fillStyle = '#ec4899';
+            c.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+            c.fillText('Created By ZetaGo-Aurum - Aleocrophic Tech , LTD', 70, 638);
+
+            const certId = 'CERT-' + Math.floor(100000 + Math.random() * 900000);
+            c.fillStyle = '#9ca3af';
+            c.font = 'bold 14px "Orbitron", sans-serif';
+            c.fillText(certId, 980, 625);
+
+            // Export to PNG
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.download = `Sertifikat-Otaku-${userName.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+                link.href = exportCanvas.toDataURL('image/png');
+                link.click();
+                showToast('Sertifikat PNG berhasil diunduh!');
+            }, 300);
         }
 
         // Window onload initialization
