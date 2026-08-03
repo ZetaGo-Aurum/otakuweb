@@ -109,17 +109,17 @@
             </div>
 
             <div class="flex items-center space-x-2 sm:space-x-3">
-                <button type="button" onclick="openResearchModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center gap-2 cursor-pointer">
+                <button type="button" onclick="openResearchModal()" class="px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center gap-1.5 sm:gap-2 cursor-pointer">
                     <i class="fa-solid fa-microscope text-cyan-400"></i>
                     <span class="hidden md:inline">Sumber Riset & Metodologi</span>
                 </button>
 
-                <button type="button" onclick="openEncyclopediaModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center gap-2 cursor-pointer">
+                <button type="button" onclick="openEncyclopediaModal()" class="px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center gap-1.5 sm:gap-2 cursor-pointer">
                     <i class="fa-solid fa-book-bookmark text-pink-400"></i>
                     <span class="hidden md:inline">Ensiklopedia Label (47)</span>
                 </button>
 
-                <button type="button" id="soundToggleBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center justify-center cursor-pointer" title="Beralih Efek Suara">
+                <button type="button" id="soundToggleBtn" onclick="toggleAudio()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 hover:bg-white/20 text-gray-200 border border-white/15 transition flex items-center justify-center cursor-pointer shrink-0" title="Beralih Efek Suara">
                     <i class="fa-solid fa-volume-high text-xs sm:text-sm text-pink-400"></i>
                 </button>
             </div>
@@ -127,7 +127,7 @@
     </header>
 
     <!-- MAIN CONTAINER -->
-    <main class="relative z-10 max-w-5xl mx-auto px-4 py-8 flex-grow flex flex-col justify-center w-full">
+    <main class="relative z-10 max-w-5xl mx-auto px-3 sm:px-4 py-6 sm:py-8 flex-grow flex flex-col justify-center w-full">
 
         <!-- SCREEN 1: LANDING PAGE -->
         <section id="screenLanding" class="space-y-8 text-center py-6">
@@ -276,12 +276,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                     <!-- Icon / Visual Symbol -->
                     <div class="flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-b from-white/10 to-white/0 border border-white/10 relative">
-                        <div id="resultIconBox" class="w-28 h-28 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-cyan-500 flex items-center justify-center text-5xl text-white shadow-xl neon-glow mb-4">
+                        <div id="resultIconBox" class="w-28 h-28 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-cyan-500 flex items-center justify-center text-5xl text-white shadow-xl neon-glow mb-3">
                             <i class="fa-solid fa-crown"></i>
                         </div>
-                        <span id="resultCategoryTag" class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-cyan-300 border border-cyan-400/20">
-                            Dominant Archetype
-                        </span>
+                        <div class="flex flex-wrap items-center justify-center gap-2 mt-1">
+                            <span id="resultCategoryTag" class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-cyan-300 border border-cyan-400/20">
+                                Dominant Archetype
+                            </span>
+                            <span id="resultRarityTag" class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-md flex items-center gap-1">
+                                <!-- Injected via JS -->
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Details -->
@@ -501,17 +506,17 @@
     </div>
 
     <!-- ENCYCLOPEDIA MODAL (Modal 47 Archetypes) -->
-    <div id="encyclopediaModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="glass-card max-w-4xl w-full max-h-[85vh] rounded-3xl border border-white/20 flex flex-col overflow-hidden shadow-2xl">
+    <div id="encyclopediaModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="glass-card max-w-4xl w-full max-h-[90vh] sm:max-h-[85vh] rounded-3xl border border-white/20 flex flex-col overflow-hidden shadow-2xl">
             <!-- Modal Header -->
-            <div class="p-5 border-b border-white/10 flex items-center justify-between bg-black/30">
+            <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-black/30">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center border border-pink-500/30">
+                    <div class="w-9 h-9 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center border border-pink-500/30 shrink-0">
                         <i class="fa-solid fa-book text-base"></i>
                     </div>
                     <div>
-                        <h3 class="font-orbitron font-bold text-white text-base">Ensiklopedia 47 Label Persona</h3>
-                        <p class="text-[11px] text-gray-400">Daftar lengkap taksonomi otaku archetypes</p>
+                        <h3 class="font-orbitron font-bold text-white text-sm sm:text-base">Ensiklopedia 47 Label Persona</h3>
+                        <p class="text-[10px] sm:text-[11px] text-gray-400">Taksonomi otaku archetypes berdasarkan tingkat kelangkaan</p>
                     </div>
                 </div>
                 <button onclick="closeEncyclopediaModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer">
@@ -519,16 +524,27 @@
                 </button>
             </div>
 
-            <!-- Search Bar -->
-            <div class="p-4 bg-black/20 border-b border-white/5">
+            <!-- Search & Filter Bar -->
+            <div class="p-3 sm:p-4 bg-black/20 border-b border-white/5 space-y-2.5">
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-                    <input type="text" id="modalSearchInput" oninput="filterEncyclopedia()" placeholder="Cari label (misal: Maid, Yuri, Megane, Gooner, Vtuber, Gyaru)..." class="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+                    <input type="text" id="modalSearchInput" oninput="filterEncyclopedia()" placeholder="Cari label (misal: Yandere, Maid, Yuri, Megane, Gooner, Vtuber)..." class="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+                </div>
+                
+                <!-- Rarity Filter Chips -->
+                <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1 text-[11px] font-semibold">
+                    <span class="text-gray-400 shrink-0 mr-1 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-filter text-pink-400"></i> Kelangkaan:</span>
+                    <button onclick="setRarityFilter('All')" class="rarity-chip-btn px-2.5 py-1 rounded-lg bg-pink-500 text-white border border-pink-400 shrink-0 cursor-pointer transition">Semua</button>
+                    <button onclick="setRarityFilter('Legendaris')" class="rarity-chip-btn px-2.5 py-1 rounded-lg bg-white/5 text-amber-300 border border-amber-500/30 hover:bg-amber-500/20 shrink-0 cursor-pointer transition">🌟 Legendaris</button>
+                    <button onclick="setRarityFilter('Super Langka')" class="rarity-chip-btn px-2.5 py-1 rounded-lg bg-white/5 text-pink-300 border border-pink-500/30 hover:bg-pink-500/20 shrink-0 cursor-pointer transition">🔥 Super Langka</button>
+                    <button onclick="setRarityFilter('Sangat Langka')" class="rarity-chip-btn px-2.5 py-1 rounded-lg bg-white/5 text-purple-300 border border-purple-500/30 hover:bg-purple-500/20 shrink-0 cursor-pointer transition">✨ Sangat Langka</button>
+                    <button onclick="setRarityFilter('Cukup Langka')" class="rarity-chip-btn px-2.5 py-1 rounded-lg bg-white/5 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/20 shrink-0 cursor-pointer transition">💎 Cukup Langka</button>
+                    <button onclick="setRarityFilter('Umum')" class="rarity-chip-btn px-2.5 py-1 rounded-lg bg-white/5 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/20 shrink-0 cursor-pointer transition">☘️ Umum</button>
                 </div>
             </div>
 
             <!-- Modal Body Scrollable -->
-            <div id="encyclopediaList" class="p-5 overflow-y-auto space-y-3 flex-grow custom-scrollbar">
+            <div id="encyclopediaList" class="p-3 sm:p-5 overflow-y-auto space-y-3 flex-grow custom-scrollbar">
                 <!-- JS populated -->
             </div>
         </div>
@@ -550,6 +566,15 @@
 
     <!-- JAVASCRIPT CODE -->
     <script>
+        // Rarity Styling & Icon Map
+        const RARITY_CONFIG = {
+            'Umum': { color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', icon: 'fa-certificate', badgeText: '☘️ Umum', canvasColor: '#10b981' },
+            'Cukup Langka': { color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40', icon: 'fa-gem', badgeText: '💎 Cukup Langka', canvasColor: '#06b6d4' },
+            'Sangat Langka': { color: 'bg-purple-500/20 text-purple-300 border-purple-500/40', icon: 'fa-wand-magic-sparkles', badgeText: '✨ Sangat Langka', canvasColor: '#a855f7' },
+            'Super Langka': { color: 'bg-pink-500/20 text-pink-300 border-pink-500/40', icon: 'fa-fire', badgeText: '🔥 Super Langka', canvasColor: '#ec4899' },
+            'Legendaris': { color: 'bg-gradient-to-r from-amber-500/30 via-orange-500/30 to-yellow-500/30 text-amber-300 border-amber-500/60 font-black animate-pulse', icon: 'fa-crown', badgeText: '🌟 Legendaris', canvasColor: '#f59e0b' }
+        };
+
         const ARCHETYPES = [
             {
                 id: 'monogamist',
@@ -558,6 +583,7 @@
                 icon: 'fa-ring',
                 color: 'from-pink-500 to-rose-600',
                 category: 'Wholesome Devotion',
+                rarity: 'Umum',
                 desc: 'Kamu memiliki tingkat kesetiaan luar biasa. Bagi kamu, memiliki banyak waifu adalah hal yang kurang bermakna. Ketika menyukai satu karakter, kamu mendedikasikan kasih sayang penuh padanya.',
                 traits: ['Setia pada 1 waifu impian', 'Menghargai ikatan emosional mendalam', 'Anti-harem, mengutamakan komitmen'],
                 tropes: ['Pure Romance', 'Childhood Friend', 'Loyal Partner']
@@ -569,6 +595,7 @@
                 icon: 'fa-snowflake',
                 color: 'from-cyan-500 to-blue-600',
                 category: 'Personality Trope',
+                rarity: 'Umum',
                 desc: 'Kamu terpesona oleh karakter yang tampak tenang, ekspresi datar, dan jarang tersenyum, namun diam-diam memiliki kepedulian yang sangat dalam.',
                 traits: ['Suka karakter rasional & tenang', 'Peka pada ekspresi emosi tipis', 'Menyukai karakter cerdas'],
                 tropes: ['Silent Guardian', 'Expressionless Beauty', 'Hidden Warmth']
@@ -580,6 +607,7 @@
                 icon: 'fa-bolt',
                 color: 'from-amber-500 to-pink-500',
                 category: 'Personality Trope',
+                rarity: 'Umum',
                 desc: 'Gengsi dan malu-malu kucing adalah puncak daya tarik. Kamu sangat menikmati dinamika karakter yang berpura-pura galak namun memendam rasa sayang.',
                 traits: ['Penikmat dinamika tsundere', 'Suka sensasi manis di balik amarah', 'Menikmati romansa jenaka'],
                 tropes: ['Blushing Denial', 'Classic Twin-tail', 'Accidental Care']
@@ -591,6 +619,7 @@
                 icon: 'fa-book-open',
                 color: 'from-purple-400 to-pink-400',
                 category: 'Personality Trope',
+                rarity: 'Cukup Langka',
                 desc: 'Karakter pendiam yang bicaranya pelan dan pemalu namun sangat manis saat sudah akrab membuat hatimu merasa tenang dan bahagia.',
                 traits: ['Penyuka karakter pemalu', 'Suka momen perlahan tapi pasti', 'Menghargai ketenangan'],
                 tropes: ['Shy Library Girl', 'Soft Spoken', 'Gentle Smile']
@@ -602,6 +631,7 @@
                 icon: 'fa-broom',
                 color: 'from-purple-500 to-pink-600',
                 category: 'Aesthetic & Service',
+                rarity: 'Cukup Langka',
                 desc: 'Aura ketenangan, kesopanan, dan estetika seragam maid Victoria maupun modern membuat hatimu bergetar. Kamu mengagumi kesetiaan dan kerapian.',
                 traits: ['Sangat menyukai estetika maid', 'Mengagumi karakter sopan & perhatian', 'Suka tema kafe & pelayanan'],
                 tropes: ['Meido Aesthetics', 'Perfect Housekeeper', 'Okaerinasai Master']
@@ -613,6 +643,7 @@
                 icon: 'fa-spa',
                 color: 'from-pink-400 to-purple-400',
                 category: 'Romance Spectrum',
+                rarity: 'Sangat Langka',
                 desc: 'Kamu menganggap ikatan emosional dan romantisme antar sesama perempuan sebagai puncak dari keindahan artistik otaku.',
                 traits: ['Pencinta dinamika Girls\' Love (GL)', 'Apresiasi tinggi pada emosi estetis', 'Suka nuansa drama romantis lembut'],
                 tropes: ['Class S Romance', 'Girls Academy', 'Pure Sisterhood']
@@ -624,6 +655,7 @@
                 icon: 'fa-heart-circle-bolt',
                 color: 'from-blue-400 to-purple-500',
                 category: 'Romance Spectrum',
+                rarity: 'Sangat Langka',
                 desc: 'Kamu menemukan pesona emosional yang kuat dari dinamika Boy\'s Love (BL). Persaingan dan keterikatan emosional antar pria terasa sangat memikat.',
                 traits: ['Penyuka dinamika romansa BL', 'Suka persaingan emosional yang erat', 'Apresiasi estetika karakter pria'],
                 tropes: ['Rivalry to Romance', 'Protective Partner', 'Dramatic Confession']
@@ -635,6 +667,7 @@
                 icon: 'fa-fire',
                 color: 'from-rose-600 to-red-600',
                 category: 'Culture & Ecchi',
+                rarity: 'Super Langka',
                 desc: 'Kamu adalah penikmat sejati di dunia "Culture"! Kamu sangat menyukai fan-service, adegan ecchi, dan estetika visual karakter tanpa canggung.',
                 traits: ['Jujur pada hasrat visual & ecchi', 'Menikmati komedi dewasa & fanservice', 'Apresiasi tinggi pada estetika tubuh'],
                 tropes: ['Ecchi Comedy', 'Uncensored Cut', 'Beach Episode']
@@ -646,6 +679,7 @@
                 icon: 'fa-handcuffs',
                 color: 'from-purple-600 to-indigo-800',
                 category: 'Fetish & Dynamics',
+                rarity: 'Super Langka',
                 desc: 'Kamu merasa sangat puas jika berada di posisi pasif. Karakter wanita berkepribadian tegas, suka memerintah, atau menatap dingin membuatmu bahagia.',
                 traits: ['Suka dinamika karakter cewek dominan', 'Menikmati ejekan manis & perintah', 'Penikmat ekspresi galak'],
                 tropes: ['Sadistic Queen', 'Step-on-me Trope', 'Submissive Hero']
@@ -657,6 +691,7 @@
                 icon: 'fa-crown',
                 color: 'from-purple-700 to-rose-700',
                 category: 'Fetish & Dynamics',
+                rarity: 'Super Langka',
                 desc: 'Kamu menikmati posisi mengontrol dan memimpin. Karakter yang pemalu, patuh, atau tunduk kepadamu memberikan kepuasan tersendiri.',
                 traits: ['Suka memegang kontrol', 'Menikmati karakter patuh/pemalu', 'Sifat kepemimpinan kuat'],
                 tropes: ['Dominant Master', 'Teasing Superior', 'Commanding Aura']
@@ -668,6 +703,7 @@
                 icon: 'fa-skull-crossbones',
                 color: 'from-red-600 to-pink-700',
                 category: 'Dark Romance',
+                rarity: 'Legendaris',
                 desc: 'Obsesi berlebihan, kecemburuan ekstrem, dan bahaya menjadi bumbu cinta terbaik. Yandere yang rela mengurungmu terasa sangat memikat.',
                 traits: ['Penyuka obsesi cinta tingkat tinggi', 'Suka elemen horor psikologis', 'Suka tantangan bahaya'],
                 tropes: ['Obsessive Love', 'Eyeless Stare', 'Dangerous Jealousy']
@@ -679,6 +715,7 @@
                 icon: 'fa-cat',
                 color: 'from-amber-400 to-pink-500',
                 category: 'Aesthetic Feature',
+                rarity: 'Sangat Langka',
                 desc: 'Sentuhan telinga kucing atau kelinci menaikkan daya tarik karakter seketika! Kebiasaan manja "Nya~" membuat hatimu meleleh.',
                 traits: ['Penyuka telinga & ekor hewan', 'Suka kebiasaan karakter manja', 'Suka Nekomimi / Kitsunemimi'],
                 tropes: ['Nekomimi Maid', 'Tail Wagging Joy', 'Animal Ears']
@@ -690,6 +727,7 @@
                 icon: 'fa-ghost',
                 color: 'from-indigo-500 to-cyan-500',
                 category: 'Fantasy & Adventure',
+                rarity: 'Sangat Langka',
                 desc: 'Kamu menyukai pelarian menuju dunia fantasi. Di-reinkarnasi oleh Truck-kun, mendapatkan skill cheat overpower, dan bertualang di dunia sihir.',
                 traits: ['Suka reinkarnasi & cheat skill', 'Menikmati petualangan sihir', 'Suka progres karakter'],
                 tropes: ['Truck-kun Encounter', 'Overpowered MC', 'Fantasy Guild']
@@ -701,6 +739,7 @@
                 icon: 'fa-robot',
                 color: 'from-blue-600 to-cyan-600',
                 category: 'Tech & Sci-Fi',
+                rarity: 'Sangat Langka',
                 desc: 'Desain artikulasi robot, kokpit, rudal hibrida, serta pertempuran luar angkasa membuat adrenalinmu memuncak. Kamu menghargai kerumitan mekanis.',
                 traits: ['Suka desain robot & Mecha', 'Suka strategi taktis', 'Menghargai worldbuilding futuristik'],
                 tropes: ['Cockpit View', 'Military Tactics', 'Dogfight Battle']
@@ -712,6 +751,7 @@
                 icon: 'fa-mug-hot',
                 color: 'from-emerald-400 to-teal-600',
                 category: 'Comfy & Relaxing',
+                rarity: 'Umum',
                 desc: 'Kamu menonton anime untuk mencari ketenangan (iyashikei). Melihat karakter makan kue dan tertawa santai adalah terapi terbaik bagimu.',
                 traits: ['Menghindari drama berat', 'Suka atmosfer menenangkan', 'Menikmati komedi sehari-hari'],
                 tropes: ['After-school Club', 'Cute Girls Doing Cute Things', 'Cozy Teatime']
@@ -723,6 +763,7 @@
                 icon: 'fa-skull',
                 color: 'from-slate-700 to-gray-900',
                 category: 'Heavy Storytelling',
+                rarity: 'Super Langka',
                 desc: 'Cerita manis membosankan bagimu. Kamu mendambakan plot twist mengejutkan, pengorbanan berdarah, dan realita dunia fantasi yang kejam.',
                 traits: ['Suka cerita berat & psikologis', 'Menikmati penderitaan karakter', 'Suka atmosfer misteri kelam'],
                 tropes: ['Grimdark World', 'Psychological Collapse', 'Bittersweet Ending']
@@ -734,6 +775,7 @@
                 icon: 'fa-heart',
                 color: 'from-pink-500 to-purple-600',
                 category: 'Age & Dynamic',
+                rarity: 'Cukup Langka',
                 desc: 'Kamu merindukan sosok wanita yang lebih tua, mature, dan keibu-ibuan. Usapan kepala dan pelukan hangat dari Onee-san adalah surga bagimu.',
                 traits: ['Penyuka wanita dewasa', 'Suka diusap kepalanya', 'Menyukai rasa aman'],
                 tropes: ['Ara Ara Energy', 'Caring Big Sister', 'Mature Charm']
@@ -745,6 +787,7 @@
                 icon: 'fa-wand-magic-sparkles',
                 color: 'from-pink-300 to-purple-400',
                 category: 'Character Aesthetics',
+                rarity: 'Cukup Langka',
                 desc: 'Kamu sangat mengagumi keimutan visual karakter bertubuh imut dan mungil. Keinginanmu adalah melindungi mereka dari marabahaya.',
                 traits: ['Menyukai estetika keimutan', 'Naluri melindungi tinggi', 'Suka desain comel'],
                 tropes: ['Protect That Smile', 'Pocket-sized Companion', 'Moe Overload']
@@ -756,6 +799,7 @@
                 icon: 'fa-eye',
                 color: 'from-purple-600 to-indigo-600',
                 category: 'Roleplay & Imagination',
+                rarity: 'Super Langka',
                 desc: 'Kamu memiliki imajinasi liar yang keren! Kamu menyukai pose dramatis, mantra sihir keren, dan konsep aura rahasia di dalam tubuh.',
                 traits: ['Imajinasi tinggi & dramatis', 'Suka nama jurus keren', 'Menikmati kesalahpahaman'],
                 tropes: ['Eye of Darkness', 'Dark Realm', 'Dramatic Pose']
@@ -767,6 +811,7 @@
                 icon: 'fa-users',
                 color: 'from-amber-400 to-rose-500',
                 category: 'Romance Multiplicity',
+                rarity: 'Super Langka',
                 desc: 'Memilih satu waifu terasa terlalu membatasi! Kamu sangat menikmati cerita di mana beragam karakter wanita dikagumi bersama.',
                 traits: ['Menikmati dinamika banyak karakter', 'Suka perebutan cinta jenaka', 'Apresiation keberagaman tropes'],
                 tropes: ['Accidental Harem', 'True End Multi-Route', 'Group Chemistry']
@@ -778,6 +823,7 @@
                 icon: 'fa-chess-queen',
                 color: 'from-purple-900 to-slate-900',
                 category: 'Goth & Mystery',
+                rarity: 'Super Langka',
                 desc: 'Estetika victorian Gothic, renda hitam, boneka porcelain, payung gipser, dan keanggunan berkelas tinggi membuat kamu terpana.',
                 traits: ['Suka busana Gothic Lolita', 'Menyukai karakter anggun', 'Apresiasi seni klasik kelam'],
                 tropes: ['Porcelain Doll', 'Gothic Mansion', 'Aristocratic Elegance']
@@ -789,6 +835,7 @@
                 icon: 'fa-headphones',
                 color: 'from-cyan-400 to-blue-500',
                 category: 'Audio & Music',
+                rarity: 'Sangat Langka',
                 desc: 'Suara seiyuu papan atas, lagu Insert Song mendebarkan, serta konser virtual idol adalah hal yang paling membuatmu terharu.',
                 traits: ['Penghafal pengisi suara', 'Kolektor lagu OST/OP/ED', 'Penggemar budaya Anison'],
                 tropes: ['Insert Song Powerup', 'Idol Stage', 'Voice Acting Masterclass']
@@ -800,6 +847,7 @@
                 icon: 'fa-volleyball',
                 color: 'from-orange-400 to-amber-500',
                 category: 'Gap & Energetic',
+                rarity: 'Cukup Langka',
                 desc: 'Karakter cewek kasual, jago olahraga, blak-blakan, namun tersipu malu saat memakai gaun adalah kombinasi paling mematikan.',
                 traits: ['Suka karakter sporty', 'Suka kontras saat malu', 'Dinamika sahabat jadi cinta'],
                 tropes: ['Athletic Short Hair', 'Best Friend Romance', 'Casual Hoodie']
@@ -811,6 +859,7 @@
                 icon: 'fa-gem',
                 color: 'from-rose-500 to-purple-800',
                 category: 'Antagonist Charm',
+                rarity: 'Super Langka',
                 desc: 'Pahlawan lugu membosankan! Kamu lebih terpesona oleh antagonis cewek (Villainess) yang memiliki tatapan tajam dan kecerdasan.',
                 traits: ['Suka karakter antagonis', 'Apresiasi karisma jahat', 'Menikmati Isekai Villainess'],
                 tropes: ['Ohohoho Laugh', 'Noble Villainess', 'Reformation Plot']
@@ -822,6 +871,7 @@
                 icon: 'fa-mask',
                 color: 'from-pink-400 to-indigo-500',
                 category: 'Character Dynamic',
+                rarity: 'Cukup Langka',
                 desc: 'Ketua OSIS galak yang ternyata suka main game santai? Kejutan kontras kepribadian (Gap Moe) adalah hal favoritmu!',
                 traits: ['Suka perubahan sifat kaget', 'Melihat sisi rahasia', 'Sensasi kejutan emosional'],
                 tropes: ['Secret Hobby', 'Strict Boss Soft Inside', 'Contrast Charm']
@@ -833,6 +883,7 @@
                 icon: 'fa-heart-circle-check',
                 color: 'from-emerald-300 to-teal-400',
                 category: 'Wholesome Pure',
+                rarity: 'Umum',
                 desc: 'Kamu memiliki jiwa murni! Kamu mengabaikan unsur fanservice, dan hanya menginginkan cerita persahabatan serta emosi murni.',
                 traits: ['Anti-ecchi berlebihan', 'Fokus pada kehangatan emosi', 'Menyukai kisah wholesome'],
                 tropes: ['Hand Holding', 'Pure Confession', 'Wholesome Friendship']
@@ -844,6 +895,7 @@
                 icon: 'fa-palette',
                 color: 'from-pink-500 to-cyan-400',
                 category: 'Visual & Art',
+                rarity: 'Sangat Langka',
                 desc: 'Mata seni kamu sangat tajam! Kamu mengagumi kompleksitas desain kostum, cosplay dunia nyata, dan kualitas animasi sakuga.',
                 traits: ['Apresiasi kualitas animasi', 'Pengagum seni cosplay', 'Sensitif pada estetika'],
                 tropes: ['Sakuga Flex', 'Cosplay Transformation', 'Visual Masterpiece']
@@ -855,6 +907,7 @@
                 icon: 'fa-scroll',
                 color: 'from-amber-600 to-yellow-700',
                 category: 'Intellectual Story',
+                rarity: 'Cukup Langka',
                 desc: 'Kamu adalah peneliti sejarah fiksi! Kamu membaca wiki anime/game jam 2 pagi demi memahami sejarah dunia fiksi dan foreshadowing.',
                 traits: ['Suka cerita tersembunyi', 'Menganalisis teori & lore', 'Suka naskah tebal'],
                 tropes: ['Deep Worldbuilding', 'Hidden Lore', 'Complex Magic System']
@@ -866,6 +919,7 @@
                 icon: 'fa-microchip',
                 color: 'from-pink-500 to-cyan-400',
                 category: 'Sci-Fi Aesthetics',
+                rarity: 'Super Langka',
                 desc: 'Visual hujan di kota neon, implan tubuh futuristik, peretasan data, dan perlawanan korporasi adalah estetika favoritmu.',
                 traits: ['Suka estetika neon & distopia', 'Menikmati tema peretasan', 'Suka atmosfer synthwave'],
                 tropes: ['High Tech Low Life', 'Neural Link', 'Neon Rain']
@@ -877,6 +931,7 @@
                 icon: 'fa-chalkboard-user',
                 color: 'from-blue-500 to-indigo-700',
                 category: 'Mentor Dynamic',
+                rarity: 'Sangat Langka',
                 desc: 'Sosok guru atau pembimbing yang bijak dan hebat saat bertarung selalu memikat perhatianmu dengan kharisma dewasa.',
                 traits: ['Suka karakter guru/dosen', 'Mengagumi bimbingan', 'Dinamika pembimbing-murid'],
                 tropes: ['Teacher Dynamic', 'Wise Mentor', 'Cool Sensei']
@@ -888,6 +943,7 @@
                 icon: 'fa-dragon',
                 color: 'from-emerald-500 to-lime-600',
                 category: 'Fantasy Anatomy',
+                rarity: 'Legendaris',
                 desc: 'Karakter gadis naga, elf, atau centaur memberikan keberagaman visual eksotis yang sangat kamu nikmati.',
                 traits: ['Menyukai desain non-manusia', 'Apresiasi ras fantasi', 'Suka eksotisme fiksi'],
                 tropes: ['Dragon Girl', 'Elf Longevity', 'Sub-Human Charm']
@@ -899,6 +955,7 @@
                 icon: 'fa-graduation-cap',
                 color: 'from-sky-400 to-indigo-400',
                 category: 'School Youth',
+                rarity: 'Umum',
                 desc: 'Atap sekolah saat matahari terbenam dan festival budaya membawa rasa nostalgia manis tentang kehidupan remaja.',
                 traits: ['Suka setting sekolah', 'Nostalgia kehidupan remaja', 'Menikmati festival sekolah'],
                 tropes: ['Rooftop Lunch', 'Cultural Festival', 'Gym Confession']
@@ -910,6 +967,7 @@
                 icon: 'fa-hand-fist',
                 color: 'from-red-500 to-amber-500',
                 category: 'Dynamic Romance',
+                rarity: 'Sangat Langka',
                 desc: 'Pertarungan sengit yang perlahan berubah menjadi rasa hormat dan cinta adalah tropa favoritmu sepanjang masa.',
                 traits: ['Suka musuh jadi cinta', 'Dinamika perdebatan sengit', 'Hormat di balik persaingan'],
                 tropes: ['Enemies to Lovers', 'Back-to-Back Battle', 'Respectful Rival']
@@ -921,6 +979,7 @@
                 icon: 'fa-shield-halved',
                 color: 'from-amber-500 to-red-500',
                 category: 'Shonen Spirit',
+                rarity: 'Umum',
                 desc: 'Kamu pemilik jiwa Shonen sejati! Pahlawan yang tidak pernah menyerah demi persahabatan selalu membakar semangatmu.',
                 traits: ['Suka persahabatan & perjuangan', 'Terinspirasi oleh pahlawan', 'Suka pertarungan klimaks'],
                 tropes: ['Power of Friendship', 'Never Give Up', 'Final Powerup']
@@ -932,6 +991,7 @@
                 icon: 'fa-vr-cardboard',
                 color: 'from-pink-400 to-cyan-400',
                 category: 'Modern Digital Subculture',
+                rarity: 'Sangat Langka',
                 desc: 'Kamu mengikuti perkembangan Live2D avatar, kebiasaan streaming VTuber, lore debut, dan dinamika komunitas chat.',
                 traits: ['Penyuka animasi Live2D', 'Suka momen stream spontan', 'Mengikuti komunitas VTuber'],
                 tropes: ['Unarchived Karaoke', 'L2D Rigging Flex', 'Superchat Reading']
@@ -943,6 +1003,7 @@
                 icon: 'fa-glasses',
                 color: 'from-blue-400 to-indigo-500',
                 category: 'Aesthetic Feature',
+                rarity: 'Cukup Langka',
                 desc: 'Aksesori kacamata memberikan kenaikan daya tarik luar biasa pada karakter, baik pria maupun wanita!',
                 traits: ['Sangat menyukai kacamata', 'Mengagumi aura intelektual', 'Suka gestur membetulkan kacamata'],
                 tropes: ['Glasses Adjustment', 'Meganekko Charm', 'Intellectual Beauty']
@@ -954,6 +1015,7 @@
                 icon: 'fa-gem',
                 color: 'from-pink-500 to-amber-400',
                 category: 'Modern Fashion',
+                rarity: 'Sangat Langka',
                 desc: 'Gaya busana Gyaru yang mencolok, percaya diri tinggi, dan kepribadian ceria yang sangat baik hati membuatmu terpikat.',
                 traits: ['Suka estetika Gyaru/Gal', 'Suka sifat ceria blak-blakan', 'Apresiasi gaya busana modern'],
                 tropes: ['Blonde Gyaru', 'Fashionista Heart', 'Cheerful Mind']
@@ -965,6 +1027,7 @@
                 icon: 'fa-compact-disc',
                 color: 'from-purple-600 to-pink-500',
                 category: 'Vintage Aesthetic',
+                rarity: 'Legendaris',
                 desc: 'Animasi cel tradisional 80-90an, musik City Pop, dan estetika зерни visual masa lalu selalu menjadi harta karun bagimu.',
                 traits: ['Penyuka gaya retro 80s/90s', 'Pencinta musik City Pop', 'Apresiasi cel animation'],
                 tropes: ['Grainy Aesthetics', 'City Pop Vibes', 'Classic Sci-Fi']
@@ -976,6 +1039,7 @@
                 icon: 'fa-heart-pulse',
                 color: 'from-rose-400 to-purple-500',
                 category: 'Romance Multiplicity',
+                rarity: 'Legendaris',
                 desc: 'Kamu menyukai dinamika Reverse Harem di mana protagonis perempuan dikelilingi oleh banyak karakter pria rupawan.',
                 traits: ['Suka genre Otome Game', 'Dinamika Reverse Harem', 'Apresiasi karakter pria tampan'],
                 tropes: ['Ikemen Court', 'Multiple Route Romance', 'Prince Charming']
@@ -987,6 +1051,7 @@
                 icon: 'fa-dice-d20',
                 color: 'from-amber-400 to-cyan-400',
                 category: 'Gaming Subculture',
+                rarity: 'Legendaris',
                 desc: 'Sensasi keberuntungan saat menarik banner gacha game otaku adalah hiburan puncak yang selalu memicu dopaminmu.',
                 traits: ['Penyuka gacha games', 'Menikmati manajemen pity & pull', 'Suka mengumpulkan karakter rti tinggi'],
                 tropes: ['Rainbow Pull Light', 'Pity System Victory', 'SSR Collection']
@@ -998,6 +1063,7 @@
                 icon: 'fa-utensils',
                 color: 'from-orange-400 to-red-500',
                 category: 'Comfy & Lifestyle',
+                rarity: 'Cukup Langka',
                 desc: 'Seni menggambarkan hidangan makanan yang berkilau dan reaksi lezat karakter saat makan membuat liurmu menetes.',
                 traits: ['Suka tema kuliner & masak', 'Apresiasi visual makanan', 'Menikmati reaksi makan'],
                 tropes: ['Food Orgasm Reaction', 'Shiny Ramen Bowl', 'Cooking Competition']
@@ -1009,6 +1075,7 @@
                 icon: 'fa-chess-knight',
                 color: 'from-pink-900 to-purple-900',
                 category: 'Goth & Collection',
+                rarity: 'Legendaris',
                 desc: 'Keindahan boneka porselen, figure bertingkat tinggi, serta gaun berbahan renda halus memberikan rasa ketenangan estetis.',
                 traits: ['Suka koleksi figure/doll', 'Menyukai kerapian estetika', 'Suka karakter seperti boneka'],
                 tropes: ['Porcelain Skin', 'Dollhouse Setting', 'Intricate Frills']
@@ -1020,6 +1087,7 @@
                 icon: 'fa-star',
                 color: 'from-pink-400 to-yellow-400',
                 category: 'Audio & Stage',
+                rarity: 'Legendaris',
                 desc: 'Semangat mendukung pertumbuhan grup idol dari panggung kecil sampai terkenal selalu membuat dadamu bergetar haru.',
                 traits: ['Suka genre Idol', 'Menikmati koreografi panggung', 'Dukungan penuh pada impian'],
                 tropes: ['Penlight Glow', 'Center Position', 'Rooftop Practice']
@@ -1031,6 +1099,7 @@
                 icon: 'fa-sun',
                 color: 'from-amber-300 to-pink-400',
                 category: 'Personality Trope',
+                rarity: 'Umum',
                 desc: 'Karakter yang selalu ceria, menunjukkan rasa cintanya secara terang-terangan tanpa gengsi adalah energi positif terbaik.',
                 traits: ['Suka kepribadian super ceria', 'Suka pengungkapan cinta jujur', 'Energi positif alami'],
                 tropes: ['Glamping Smile', 'Direct Love Expression', 'Endless Energy']
@@ -1042,6 +1111,7 @@
                 icon: 'fa-person-running',
                 color: 'from-cyan-500 to-purple-600',
                 category: 'Aesthetic Feature',
+                rarity: 'Super Langka',
                 desc: 'Pakaian plugsuit pilot mecha atau bodysuit futuristik memberikan kombinasi luar biasa antara sci-fi dan estetika tubuh.',
                 traits: ['Suka desain plugsuit/bodysuit', 'Apresiasi lekuk visual sci-fi', 'Suka tema pilot mecha'],
                 tropes: ['Plugsuit Sync', 'Futuristic Latex', 'Sleek Design']
@@ -1053,6 +1123,7 @@
                 icon: 'fa-brain',
                 color: 'from-purple-800 to-slate-900',
                 category: 'Intellectual Story',
+                rarity: 'Super Langka',
                 desc: 'Adu kecerdasan antar dua karakter jenius, permainan bertahan hidup, dan teka-teki psikologis adalah makanan favoritmu.',
                 traits: ['Suka anime mind games', 'Suka teka-teki jenius', 'Menikmati ketegangan psikologis'],
                 tropes: ['Death Game Rules', 'Keikaku Door Reveal', 'Genius Battle']
@@ -1064,283 +1135,14 @@
                 icon: 'fa-face-smile-wink',
                 color: 'from-blue-400 to-rose-400',
                 category: 'Personality Trope',
+                rarity: 'Cukup Langka',
                 desc: 'Karakter pria yang berusaha terlihat keren padahal sebenarnya sangat pemalu dan mudah tersipu saat dipuji.',
                 traits: ['Suka karakter cowok pemalu', 'Suka dinamika tsundere pria', 'Sensasi imut yang tersembunyi'],
                 tropes: ['Blushing Guy', 'Cool Guy Soft Inside', 'Awkward Confession']
             }
         ];
 
-        const QUESTIONS = [
-            { id: 1, cat: "Personality Trope", text: "Saya lebih menyukai karakter yang terlihat dingin/datar di luar, tetapi memiliki perhatian tersembunyi yang sangat hangat (Kuudere).", weight: { kuudere: 3, gapmoe: 1 } },
-            { id: 2, cat: "Dark Romance", text: "Karakter yang memiliki rasa cinta sangat obsesif, cemburu ekstrem, atau bahkan agak berbahaya (Yandere) justru terasa sangat menarik.", weight: { yandere: 3, darkfantasy: 1 } },
-            { id: 3, cat: "Personality Trope", text: "Karakter yang pura-pura galak dan gengsi mengakui perasaannya (Tsundere) adalah puncak hiburan anime.", weight: { tsundere: 3, gapmoe: 1 } },
-            { id: 4, cat: "Fantasy & Adventure", text: "Saya sangat menikmati cerita berpindah ke dunia lain (Isekai) dan mendapatkan kemampuan ajaib overpower.", weight: { isekai: 3, chuunibyou: 1 } },
-            { id: 5, cat: "Aesthetic & Service", text: "Detail seragam maid atau pakaian pelayanan selalu meningkatkan nilai estetika karakter secara signifikan.", weight: { maid: 3, gothic: 1 } },
-            { id: 6, cat: "Comfy & Relaxing", text: "Cerita santai tanpa konflik berat (Slice of Life) jauh lebih menyembuhkan daripada anime pertarungan yang bikin stres.", weight: { sliceoflife: 3, pureheart: 1 } },
-            { id: 7, cat: "Romance Spectrum", text: "Saya menganggap ikatan cinta antar sesama karakter perempuan (Yuri) terasa lebih murni, estetik, dan indah.", weight: { yuri: 3, pureheart: 1 } },
-            { id: 8, cat: "Aesthetic Feature", text: "Sentuhan fisik seperti telinga kucing, serigala, atau ekor (Kemonomimi) membuat karakter berkali-kali lipat lebih menggemaskan.", weight: { neko: 3, petite: 1 } },
-            { id: 9, cat: "Heavy Storytelling", text: "Suasana cerita yang gelap, teka-teki psikologis, tragedi, dan gore jauh lebih memikat daripada cerita yang terlalu ceria.", weight: { darkfantasy: 3, thriller: 2 } },
-            { id: 10, cat: "Character Aesthetics", text: "Karakter dengan postur tubuh mungil dan imut (Cute/Petite) memicu naluri pelindung yang sangat kuat dalam diri saya.", weight: { petite: 3, neko: 1 } },
-            { id: 11, cat: "Fetish & Dynamics", text: "Saya menyukai dinamika di mana saya diposisikan untuk dipatuhi, diatur, atau diejek manis oleh karakter wanita dominan.", weight: { masochist: 3, dominant: -1 } },
-            { id: 12, cat: "Tech & Sci-Fi", text: "Desain robot raksasa (Mecha), senjata futuristik, dan taktik militer sci-fi selalu berhasil membuat saya kagum.", weight: { mecha: 3, cyberpunk: 1 } },
-            { id: 13, cat: "Gap & Energetic", text: "Karakter cewek tomboy yang aktif, berolahraga, dan santai seperti sahabat cowok adalah tipe idaman saya.", weight: { tomboy: 3, school: 1 } },
-            { id: 14, cat: "Age & Dynamic", text: "Karakter wanita dewasa yang keibu-ibuan, penyayang, dan suka mengusap kepala (Onee-san) memberikan kenyamanan tiada tanding.", weight: { oneesan: 3, sensei: 1 } },
-            { id: 15, cat: "Culture & Ecchi", text: "Saya menikmati konten berunsur ecchi, adegan fanservice, dan materi tanpa sensor tanpa perlu merasa malu.", weight: { gooner: 3, pureheart: -2 } },
-            { id: 16, cat: "Wholesome Devotion", text: "Saya tipe otaku yang sangat setia: hanya memiliki 1 Waifu utama dan tidak tertarik mengganti-gantinya.", weight: { monogamist: 3, harem: -2 } },
-            { id: 17, cat: "Romance Multiplicity", text: "Kenapa harus memilih satu jika bisa menyukai semuanya? Pilihan harem yang ramai dan beragam adalah yang terbaik.", weight: { harem: 3, monogamist: -2 } },
-            { id: 18, cat: "Goth & Mystery", text: "Gaya busana Gothic Lolita, gaun renda hitam, dan keanggunan misterius terasa sangat memikat.", weight: { gothic: 3, gothiclolita: 2 } },
-            { id: 19, cat: "Audio & Music", text: "Suara pengisi suara (Seiyuu), lagu tema (OST), dan pertunjukan konser musik memiliki peran sangat besar dalam menyukai anime/game.", weight: { seiyuu: 3, idoldream: 2 } },
-            { id: 20, cat: "Mentor Dynamic", text: "Karakter guru, dosen, atau pembimbing senior (Sensei) memiliki kharisma dewasa yang sangat menarik.", weight: { sensei: 3, oneesan: 1 } },
-            { id: 21, cat: "Romance Spectrum", text: "Dinamika romansa antar karakter pria (BL / Yaoi) terasa sangat menarik dan penuh emosi mendalam.", weight: { bl: 3 } },
-            { id: 22, cat: "Fantasy Anatomy", text: "Karakter ras fantasi atau setengah monster (Gadis Naga, Elf, Harpy) terasa lebih eksotis dan estetik dibanding manusia biasa.", weight: { monstergirl: 3, isekai: 1 } },
-            { id: 23, cat: "Roleplay & Imagination", text: "Saya suka membayangkan memiliki kekuatan rahasia terselubung di mata atau tangan kanan seperti konsep Chuunibyou.", weight: { chuunibyou: 3, isekai: 1 } },
-            { id: 24, cat: "Antagonist Charm", text: "Karakter antagonis wanita (Villainess) yang licik, berkuasa, dan elegan jauh lebih menarik daripada pahlawan utama yang polos.", weight: { villainess: 3, dominant: 1 } },
-            { id: 25, cat: "Character Dynamic", text: "Perubahan sifat mendadak yang mengejutkan (Gap Moe) selalu berhasil membuat hati saya berdebar.", weight: { gapmoe: 3, tsundere: 1, kuudere: 1 } },
-            { id: 26, cat: "Wholesome Pure", text: "Konten anime/game idealnya bersih dari ecchi berlebihan; saya hanya berfokus pada kehangatan cerita dan emosi murni.", weight: { pureheart: 3, gooner: -3 } },
-            { id: 27, cat: "Sci-Fi Aesthetics", text: "Visual kota bermandikan lampu neon, peretasan data, dan dunia cyberpunk selalu memicu adrenalin saya.", weight: { cyberpunk: 3, mecha: 1 } },
-            { id: 28, cat: "School Youth", text: "Atmosfer sekolah Jepang, festival budaya, dan momen masa muda selalu membuat saya rindu walau belum pernah mengalaminya.", weight: { school: 3, sliceoflife: 1 } },
-            { id: 29, cat: "Visual & Art", text: "Saya lebih mengagumi keindahan seni visual, detail kostum cosplay, dan kualitas animasi daripada alur ceritanya.", weight: { cosplay: 3, seiyuu: 1 } },
-            { id: 30, cat: "Intellectual Story", text: "Saya sangat senang menganalisis lore tersembunyi, sistem sihir yang rumit, dan sejarah dalam sebuah dunia fiksi.", weight: { lore: 3, darkfantasy: 1 } },
-            { id: 31, cat: "Dynamic Romance", text: "Persaingan ketat antar musuh yang perlahan-lahan berubah menjadi benih cinta sejati adalah tropa terbaik.", weight: { rivalry: 3, tsundere: 1 } },
-            { id: 32, cat: "Fetish & Dynamics", text: "Saya menikmati posisi dominan di mana saya yang membimbing atau mengontrol karakter yang patuh/pemalu.", weight: { dominant: 3, masochist: -2 } },
-            { id: 33, cat: "Shonen Spirit", text: "Momen pahlawan bertarung pantang menyerah demi persahabatan selalu membuat mata saya berkaca-kaca.", weight: { heroic: 3, isekai: 1 } },
-            { id: 34, cat: "Modern Digital Subculture", text: "Saya rajin menonton VTuber, menyukai avatar Live2D, dan mengikuti perkembangan budaya streamer virtual.", weight: { vtuber: 4, seiyuu: 1 } },
-            { id: 35, cat: "Aesthetic Feature", text: "Karakter yang menggunakan kacamata (Megane) memberikan aura intelektual yang sangat menawan.", weight: { megane: 4 } },
-            { id: 36, cat: "Modern Fashion", text: "Gaya busana Gyaru yang fashionable, ceria, dan penuh rasa percaya diri sangat menarik perhatian saya.", weight: { gyaru: 4, tomboy: 1 } },
-            { id: 37, cat: "Vintage Aesthetic", text: "Saya sangat mengagumi gaya animasi retro era 80-90an, musik City Pop, dan nuansa cel-animation klasik.", weight: { retro: 4, cyberpunk: 1 } },
-            { id: 38, cat: "Romance Multiplicity", text: "Saya menyukai cerita Reverse Harem / Otome di mana protagonis dikelilingi oleh banyak pria rupawan.", weight: { otome: 4, bl: 1 } },
-            { id: 39, cat: "Gaming Subculture", text: "Sensasi menarik banner gacha dan mendapatkan kilatan kartu langka adalah kepuasan tersendiri.", weight: { gacha: 4 } },
-            { id: 40, cat: "Comfy & Lifestyle", text: "Detail visual makanan yang lezat (Anime Food) dan adegan memasak selalu membuat saya merasa rileks.", weight: { foodie: 4, sliceoflife: 1 } },
-            { id: 41, cat: "Goth & Collection", text: "Saya sangat mengagumi keindahan boneka porselen dan koleksi figure dengan detail renda yang rumit.", weight: { gothiclolita: 4, gothic: 2 } },
-            { id: 42, cat: "Audio & Stage", text: "Melihat perjuangan grup idol berkembang dari panggung lokal menuju stadion besar selalu memberikan inspirasi.", weight: { idoldream: 4, seiyuu: 1 } },
-            { id: 43, cat: "Personality Trope", text: "Karakter yang selalu ceria, memberikan kasih sayang tanpa canggung (Deredere) adalah tipe penyemangat terbaik.", weight: { deredere: 4, pureheart: 1 } },
-            { id: 44, cat: "Aesthetic Feature", text: "Pakaian ketat sci-fi seperti plugsuit pilot mecha atau bodysuit memberikan estetika visual yang luar biasa.", weight: { bodysuit: 4, mecha: 1 } },
-            { id: 45, cat: "Intellectual Story", text: "Pertarungan teka-teki logika, mind games, dan strategi jitu jauh lebih mendebarkan daripada pertarungan fisik.", weight: { thriller: 4, lore: 1 } },
-            { id: 46, cat: "Personality Trope", text: "Saya sangat menyukai karakter pemalu (Dandere) yang perlahan-lahan memberanikan diri untuk tersenyum.", weight: { dandere: 3, pureheart: 1 } },
-            { id: 47, cat: "Personality Trope", text: "Karakter pria yang berusaha sok keren padahal sebenarnya sangat pemalu dan gampang tersipu (Tsundere Boy) itu imut.", weight: { tsundereboy: 4, otome: 1 } },
-            { id: 48, cat: "Aesthetic & Service", text: "Sentuhan pakaian kasual kebesaran seperti oversized hoodie pada karakter cewek terasa sangat seksi dan nyaman.", weight: { tomboy: 2, gapmoe: 1 } },
-            { id: 49, cat: "Heavy Storytelling", text: "Penderitaan dan perjuangan keras karakter dari titik nol di dunia yang kejam memberikan kepuasan cerita tersendiri.", weight: { darkfantasy: 2, heroic: 1 } },
-            { id: 50, cat: "Wholesome Devotion", text: "Momen romantis sederhana seperti pegangan tangan atau usapan kepala terasa jauh lebih menyentuh daripada adegan fisik berlebihan.", weight: { pureheart: 2, monogamist: 2 } },
-            { id: 51, cat: "Culture & Ecchi", text: "Saya sering mencari informasi versi tanpa sensor atau artbook resmi dari karya otaku favorit saya.", weight: { gooner: 2, cosplay: 1 } },
-            { id: 52, cat: "General Culture", text: "Bagi saya, menjadi Otaku adalah tentang mengapresiasi passion, estetika visual, dan kebebasan mengekspresikan hobi.", weight: { pureheart: 1, monogamist: 1, heroic: 1 } }
-        ];
-
-        let currentQuestionIndex = 0;
-        let userAnswers = [];
-        let isAudioMuted = false;
-        let userName = "John Doe";
-
-        // Web Audio API Synthesis
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSound(freq = 440, type = 'sine', duration = 0.08) {
-            if (isAudioMuted || !audioCtx) return;
-            try {
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) {}
-        }
-
-        function toggleAudio() {
-            isAudioMuted = !isAudioMuted;
-            const btn = document.getElementById('soundToggleBtn');
-            btn.innerHTML = isAudioMuted ? 
-                '<i class="fa-solid fa-volume-xmark text-gray-500"></i>' : 
-                '<i class="fa-solid fa-volume-high text-xs sm:text-sm text-pink-400"></i>';
-            showToast(isAudioMuted ? 'Efek suara dimatikan' : 'Efek suara diaktifkan');
-        }
-
-        /* Particle Canvas Animation */
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.color = ['#ec4899', '#8b5cf6', '#06b6d4'][Math.floor(Math.random() * 3)];
-                this.alpha = Math.random() * 0.4 + 0.15;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
-            }
-            draw() {
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 50; i++) particles.push(new Particle());
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        function startQuiz() {
-            const nameInput = document.getElementById('userNameInput').value.trim();
-            userName = nameInput !== '' ? nameInput : 'John Doe';
-            playSound(650, 'sine');
-            document.getElementById('screenLanding').classList.add('hidden');
-            document.getElementById('screenQuiz').classList.remove('hidden');
-            document.getElementById('screenResult').classList.add('hidden');
-            currentQuestionIndex = 0;
-            userAnswers = new Array(QUESTIONS.length).fill(null);
-            renderQuestion();
-        }
-
-        function resetToHome() {
-            playSound(400, 'sine');
-            document.getElementById('screenLanding').classList.remove('hidden');
-            document.getElementById('screenQuiz').classList.add('hidden');
-            document.getElementById('screenResult').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function renderQuestion() {
-            const q = QUESTIONS[currentQuestionIndex];
-            document.getElementById('questionCategory').innerHTML = `<i class="fa-solid fa-compass"></i> Kategori: ${q.cat}`;
-            document.getElementById('questionText').innerText = q.text;
-            
-            const total = QUESTIONS.length;
-            const currentNum = currentQuestionIndex + 1;
-            const pct = ((currentNum / total) * 100).toFixed(1);
-
-            document.getElementById('questionCountText').innerText = `Pertanyaan ${currentNum} dari ${total}`;
-            document.getElementById('questionPercentText').innerText = `${pct}%`;
-            document.getElementById('progressBar').style.width = `${pct}%`;
-
-            // Reset option styling highlight
-            const selectedVal = userAnswers[currentQuestionIndex];
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach((btn, idx) => {
-                const val = idx + 1;
-                if (selectedVal === val) {
-                    btn.classList.add('ring-2', 'ring-pink-500', 'bg-pink-500/30');
-                } else {
-                    btn.classList.remove('ring-2', 'ring-pink-500', 'bg-pink-500/30');
-                }
-            });
-
-            const prevBtn = document.getElementById('prevBtn');
-            prevBtn.disabled = currentQuestionIndex === 0;
-        }
-
-        function selectOption(val) {
-            playSound(480 + val * 65, 'sine');
-            userAnswers[currentQuestionIndex] = val;
-
-            if (currentQuestionIndex < QUESTIONS.length - 1) {
-                currentQuestionIndex++;
-                setTimeout(() => {
-                    renderQuestion();
-                }, 140);
-            } else {
-                calculateResults();
-            }
-        }
-
-        function prevQuestion() {
-            if (currentQuestionIndex > 0) {
-                playSound(350, 'sine');
-                currentQuestionIndex--;
-                renderQuestion();
-            }
-        }
-
-        function calculateResults() {
-            playSound(850, 'triangle', 0.25);
-
-            let archetypeScores = {};
-            ARCHETYPES.forEach(a => archetypeScores[a.id] = 0);
-
-            let dimensions = {
-                wholesome: 0,
-                story: 0,
-                trope: 0,
-                culture: 0,
-                aesthetic: 0
-            };
-
-            userAnswers.forEach((ans, idx) => {
-                if (!ans) ans = 3; // neutral default
-                const multiplier = ans - 3; // -2, -1, 0, 1, 2
-                const q = QUESTIONS[idx];
-
-                for (let archKey in q.weight) {
-                    if (archetypeScores.hasOwnProperty(archKey)) {
-                        archetypeScores[archKey] += q.weight[archKey] * multiplier;
-                    }
-                }
-
-                if (q.cat.includes('Wholesome') || q.cat.includes('Comfy') || q.cat.includes('Food')) dimensions.wholesome += ans;
-                if (q.cat.includes('Story') || q.cat.includes('Fantasy') || q.cat.includes('Tech') || q.cat.includes('Intellectual')) dimensions.story += ans;
-                if (q.cat.includes('Trope') || q.cat.includes('Dynamic') || q.cat.includes('Fashion')) dimensions.trope += ans;
-                if (q.cat.includes('Culture') || q.cat.includes('Fetish') || q.cat.includes('Modern')) dimensions.culture += ans;
-                if (q.cat.includes('Aesthetic') || q.cat.includes('Audio') || q.cat.includes('Retro') || q.cat.includes('Visual')) dimensions.aesthetic += ans;
-            });
-
-            let sortedArchetypes = ARCHETYPES.map(a => {
-                return {
-                    ...a,
-                    score: archetypeScores[a.id] || 0
-                };
-            }).sort((a, b) => b.score - a.score);
-
-            const topArchetype = sortedArchetypes[0];
-            const runnerUps = sortedArchetypes.slice(1, 5);
-
-            const calcDimPct = (val) => Math.min(100, Math.max(15, Math.round((val / 45) * 100)));
-            const dimPct = {
-                wholesome: calcDimPct(dimensions.wholesome),
-                story: calcDimPct(dimensions.story),
-                trope: calcDimPct(dimensions.trope),
-                culture: calcDimPct(dimensions.culture),
-                aesthetic: calcDimPct(dimensions.aesthetic)
-            };
-
-            renderResultScreen(topArchetype, runnerUps, dimPct);
-
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 120,
-                    spread: 80,
-                    origin: { y: 0.6 }
-                });
-            }
-        }
+        let selectedRarityFilter = 'All';
 
         function renderResultScreen(top, runnerUps, dims) {
             document.getElementById('screenQuiz').classList.add('hidden');
@@ -1351,6 +1153,12 @@
             document.getElementById('resultTagline').innerText = `"${top.tagline}"`;
             document.getElementById('resultDescription').innerText = top.desc;
             document.getElementById('resultCategoryTag').innerText = top.category;
+
+            // Rarity Tag Styling
+            const rConfig = RARITY_CONFIG[top.rarity] || RARITY_CONFIG['Umum'];
+            const rarityTag = document.getElementById('resultRarityTag');
+            rarityTag.className = `px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-md flex items-center gap-1.5 ${rConfig.color}`;
+            rarityTag.innerHTML = `<i class="fa-solid ${rConfig.icon}"></i> ${rConfig.badgeText}`;
 
             document.getElementById('resultIconBox').innerHTML = `<i class="fa-solid ${top.icon}"></i>`;
 
@@ -1376,101 +1184,96 @@
             document.getElementById('dimAestheticBar').style.width = `${dims.aesthetic}%`;
 
             const grid = document.getElementById('secondaryArchetypesGrid');
-            grid.innerHTML = runnerUps.map(r => `
-                <div class="glass-card p-3.5 rounded-2xl border border-white/5 flex flex-col items-center text-center space-y-1 hover:border-purple-500/30 transition">
-                    <div class="w-8 h-8 rounded-lg bg-white/10 text-pink-400 flex items-center justify-center text-sm">
-                        <i class="fa-solid ${r.icon}"></i>
+            grid.innerHTML = runnerUps.map(r => {
+                const cfg = RARITY_CONFIG[r.rarity] || RARITY_CONFIG['Umum'];
+                return `
+                    <div class="glass-card p-3 rounded-2xl border border-white/5 flex flex-col items-center text-center space-y-1 hover:border-purple-500/30 transition">
+                        <div class="w-8 h-8 rounded-lg bg-white/10 text-pink-400 flex items-center justify-center text-sm">
+                            <i class="fa-solid ${r.icon}"></i>
+                        </div>
+                        <div class="text-xs font-bold text-white font-orbitron truncate w-full">${r.title}</div>
+                        <span class="text-[9px] px-2 py-0.5 rounded-full border ${cfg.color} font-semibold">${cfg.badgeText}</span>
                     </div>
-                    <div class="text-xs font-bold text-white font-orbitron truncate w-full">${r.title}</div>
-                    <div class="text-[10px] text-gray-400 truncate w-full">${r.category}</div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function openResearchModal() {
-            playSound(450, 'sine');
-            document.getElementById('researchModal').classList.remove('hidden');
-        }
-
-        function closeResearchModal() {
+        function setRarityFilter(rarity) {
             playSound(350, 'sine');
-            document.getElementById('researchModal').classList.add('hidden');
-        }
-
-        function openEncyclopediaModal() {
-            playSound(450, 'sine');
-            document.getElementById('encyclopediaModal').classList.remove('hidden');
-            renderEncyclopediaList(ARCHETYPES);
-        }
-
-        function closeEncyclopediaModal() {
-            playSound(350, 'sine');
-            document.getElementById('encyclopediaModal').classList.add('hidden');
+            selectedRarityFilter = rarity;
+            
+            // Highlight active filter chip
+            const chips = document.querySelectorAll('.rarity-chip-btn');
+            chips.forEach(chip => {
+                if ((rarity === 'All' && chip.innerText.includes('Semua')) || chip.innerText.includes(rarity)) {
+                    chip.classList.add('bg-pink-500', 'text-white');
+                    chip.classList.remove('bg-white/5');
+                } else {
+                    chip.classList.remove('bg-pink-500', 'text-white');
+                    chip.classList.add('bg-white/5');
+                }
+            });
+            filterEncyclopedia();
         }
 
         function renderEncyclopediaList(list) {
             const container = document.getElementById('encyclopediaList');
-            container.innerHTML = list.map(item => `
-                <div class="glass-card p-4 rounded-2xl border border-white/5 flex gap-4 items-start hover:border-pink-500/40 transition">
-                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr ${item.color} flex-shrink-0 flex items-center justify-center text-white text-lg shadow-lg">
-                        <i class="fa-solid ${item.icon}"></i>
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10 text-gray-400 space-y-2">
+                        <i class="fa-solid fa-ghost text-3xl text-pink-400/50"></i>
+                        <p class="text-xs">Tidak ada label otaku yang sesuai dengan filter ini.</p>
                     </div>
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <h4 class="font-bold text-white font-orbitron text-xs sm:text-sm">${item.title}</h4>
-                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-pink-300 font-semibold border border-white/5">${item.category}</span>
+                `;
+                return;
+            }
+
+            container.innerHTML = list.map(item => {
+                const cfg = RARITY_CONFIG[item.rarity] || RARITY_CONFIG['Umum'];
+                return `
+                    <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/5 flex gap-3.5 items-start hover:border-pink-500/40 transition">
+                        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr ${item.color} flex-shrink-0 flex items-center justify-center text-white text-base sm:text-lg shadow-lg">
+                            <i class="fa-solid ${item.icon}"></i>
                         </div>
-                        <p class="text-xs text-pink-400 italic font-medium">"${item.tagline}"</p>
-                        <p class="text-xs text-gray-300 leading-relaxed">${item.desc}</p>
+                        <div class="space-y-1 w-full min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h4 class="font-bold text-white font-orbitron text-xs sm:text-sm truncate">${item.title}</h4>
+                                <span class="text-[9px] px-2 py-0.5 rounded-full border ${cfg.color} font-semibold flex items-center gap-1">
+                                    <i class="fa-solid ${cfg.icon}"></i> ${cfg.badgeText}
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-pink-300 font-semibold border border-white/5">${item.category}</span>
+                            </div>
+                            <p class="text-xs text-pink-400 italic font-medium">"${item.tagline}"</p>
+                            <p class="text-xs text-gray-300 leading-relaxed">${item.desc}</p>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function filterEncyclopedia() {
             const query = document.getElementById('modalSearchInput').value.toLowerCase();
-            const filtered = ARCHETYPES.filter(a => 
-                a.title.toLowerCase().includes(query) || 
-                a.category.toLowerCase().includes(query) || 
-                a.desc.toLowerCase().includes(query) ||
-                a.tagline.toLowerCase().includes(query)
-            );
+            const filtered = ARCHETYPES.filter(a => {
+                const matchesQuery = a.title.toLowerCase().includes(query) || 
+                                     a.category.toLowerCase().includes(query) || 
+                                     a.desc.toLowerCase().includes(query) ||
+                                     a.tagline.toLowerCase().includes(query);
+                const matchesRarity = selectedRarityFilter === 'All' || a.rarity === selectedRarityFilter;
+                return matchesQuery && matchesRarity;
+            });
             renderEncyclopediaList(filtered);
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toastNotification');
-            document.getElementById('toastMessage').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
-        }
-
-        function copyResultText() {
-            const title = document.getElementById('resultTitle').innerText;
-            const tagline = document.getElementById('resultTagline').innerText;
-            const textToCopy = `✨ HASIL OTAKU SPECTRUM TEST PRO ✨\n\nNama: ${userName}\nPersona Otaku Utama: ${title}\n${tagline}\n\nCoba tes selera otaku berbasis riset kamu di Otaku Spectrum Pro! 🚀`;
-            
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(textToCopy);
-            } else {
-                const el = document.createElement('textarea');
-                el.value = textToCopy;
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-            }
-            showToast('Teks ringkasan berhasil disalin!');
         }
 
         function downloadCardAsImage() {
             const title = document.getElementById('resultTitle').innerText;
             const tagline = document.getElementById('resultTagline').innerText;
             const desc = document.getElementById('resultDescription').innerText;
+
+            // Find current archetype rarity
+            const topArch = ARCHETYPES.find(a => a.title === title) || ARCHETYPES[0];
+            const rarityInfo = RARITY_CONFIG[topArch.rarity] || RARITY_CONFIG['Umum'];
 
             const wVal = document.getElementById('dimWholesomeVal').innerText;
             const sVal = document.getElementById('dimStoryVal').innerText;
@@ -1538,7 +1341,7 @@
             c.lineTo(910, 142);
             c.stroke();
 
-            // Archetype Main Title
+            // Archetype Main Title & Rarity Stamp
             c.fillStyle = '#ec4899';
             c.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
             c.fillText('PERSONA & ARCHETYPE UTAMA:', 50, 172);
@@ -1547,9 +1350,16 @@
             c.font = 'bold 28px "Orbitron", sans-serif';
             c.fillText(title, 50, 210);
 
+            // Rarity Badge Drawing on Canvas
+            c.fillStyle = rarityInfo.canvasColor;
+            c.fillRect(50, 222, 150, 24);
+            c.fillStyle = '#000000';
+            c.font = 'bold 11px "Orbitron", sans-serif';
+            c.fillText(`KELANGKAAN: ${topArch.rarity.toUpperCase()}`, 58, 238);
+
             c.fillStyle = '#c084fc';
-            c.font = 'italic 16px "Plus Jakarta Sans", sans-serif';
-            c.fillText(tagline, 50, 238);
+            c.font = 'italic 15px "Plus Jakarta Sans", sans-serif';
+            c.fillText(tagline, 215, 238);
 
             // Description Wrap
             c.fillStyle = '#d1d5db';
@@ -1571,7 +1381,7 @@
                 }
                 context.fillText(line, x, y);
             }
-            wrapText(c, desc, 50, 270, 810, 20);
+            wrapText(c, desc, 50, 275, 810, 20);
 
             // Dimensions Summary Box
             c.fillStyle = 'rgba(0, 0, 0, 0.4)';
@@ -1605,7 +1415,7 @@
             link.href = exportCanvas.toDataURL('image/png');
             link.click();
 
-            showToast('Sertifikat PNG berpenama berhasil diunduh!');
+            showToast('Sertifikat PNG berpenama & kelangkaan berhasil diunduh!');
         }
     </script>
 </body>
